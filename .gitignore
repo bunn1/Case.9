@@ -1,0 +1,9 @@
+# Logs
+logs
+
+# Dependency directories
+node_modules
+
+# dotenv environment variable file
+.env
+.env.test

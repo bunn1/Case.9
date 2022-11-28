@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies</title>
+</head>
+<body>
+
+    <h1>Testa cookies</h1>
+
+
+    <p>
+        Den här webbplatsen använder cookies för bättre användarupplevelse.
+        <input type="checkbox" name="cookieAlert" id="cookieAlert"> Fortsätt navigera!
+    </p>
+
+    
+    <script>
+
+
+        // save cookie
+        // make sure user accepts cookies before this...
+        // https://gdpr.eu/cookies
+
+        document.cookie = "dish=salad; max-age=10";
+        document.cookie = "cookieAlert=true; max-age=360000";
+        document.cookie = "member=true; max-age=100";
+        
+        // function to read cookie value
+        function getCookie(name) {
+
+            // read cookies
+            const cookies = document.cookie;
+            // console.log("cookies", cookies);
+
+            // split ';'
+            const parts = cookies.split(';');
+            // console.log("parts", parts);
+
+            // for loop - break loop using return
+            for (let i = 0; i < parts.length; i++) {
+                // console.log("part", parts[i]);
+
+                // split '='
+                const [key, value] = parts[i].split('=');
+                // console.log("key", key, "value", value);
+
+                if (key.trim() == name) {
+
+                    return value;
+                }
+            }
+        }
+
+        // getCookie("dish");
+
+        const findCookieValue = "member";
+        const cookieValue = getCookie(findCookieValue);
+        console.log(`Cookie ${findCookieValue} value set to ${cookieValue}`);
+
+
+    </script>
+
+</body>
+</html>

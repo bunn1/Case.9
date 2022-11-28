@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Äpplen</title>
+</head>
+<body>
+    
+    <!-- include header -->
+    <%- include("./partials/header.ejs") %>
+
+    <h1>Äpplen</h1>
+
+        <!-- defined as 2:nd arg in method res.render -->
+        <% if (locals.apples) { %>
+        <div>Äpplen: <%= apples %></div>  
+        <% } %> 
+
+        <!-- defined as res.locals -->
+        <% if (locals.pears) { %>
+            <div>Päron: <%= pears %></div>
+        <% } %> 
+
+        <!-- defined as app.locals -->
+        <% if (locals.berries) { %>
+            <div>Bär: <%= berries %></div>
+        <% } %> 
+        
+        <!-- NOT defined server-side -->
+        <% if (locals.plums) { %>
+            <div>Plommon: <%= plums %></div>
+        <% } %> 
+
+        <form action="" method="post">
+            <input type="text" id="apple" name="apple">
+            
+            <!-- hidden field session id -->
+            <input type="hidden" name="sessionId" id="sessionId" value="<%= id %>">
+            <input type="submit" value="Lägg till">
+        </form>
+
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<header>
+    <!-- use ejs: param object -->
+    <%= site %>  
+
+    <!-- show username if user logged in... -->
+    <% if (locals.username) { %>
+        <%= username %> 
+    <% } %> 
+ 
+    <nav>
+        <a href="/">Start</a> | <a href="/user">Användare</a> | <a href="/about">Äpplen</a>
+    </nav>
+</header>
+<hr>
