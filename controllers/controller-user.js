@@ -8,7 +8,6 @@ import bcrypt from 'bcrypt';
 
 
 const saltRounds = 10;
-
 // Hitta specifik user i databasen och sen returneras den.
 async function listUsers() {
     let users = await db.collection("users").find({}).toArray();
@@ -43,9 +42,9 @@ async function addUser(obj) {
         // if no errors - save to database, return result    
         return await db.collection("users").insertOne(obj);
 
-    } else {
-        return {error: "............"};
-    }
+     } else {
+         return {error: "Användare finns redan!"};
+ }
 }
 
 async function loginUser(obj) {

@@ -75,12 +75,12 @@ app.use('/user', routeUser);
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries
 
-app.locals.berries = "Strawberry"
+// app.locals.berries = "Strawberry"
 
-app.get('/apples', (req, res) => {
-    res.locals.pears = "Clara Frijs"; 
-    res.render("apples", {site: SITE_NAME, apples: "Ingrid Marie", id: req.session.id })
-});
+// app.get('/about', (req, res) => {
+//     res.locals.pears = "Clara Frijs"; 
+//     res.render("apples", {site: SITE_NAME, apples: "Ingrid Marie", id: req.session.id })
+// });
 
 
 // static files | folders

@@ -29,9 +29,12 @@ router.post("/register", (req, res) => {
 
     // prepare obj reply
     let reply = { result: "", message: "" };
+console.log(req.body)
 
     addUser(req.body)
+    
         .then((data) => {
+          
             console.log("data", data);
             if (data.error !== undefined) {
                 reply.result = "fail";
@@ -40,6 +43,7 @@ router.post("/register", (req, res) => {
                 reply.result = "success";
                 reply.message = "Användare sparad";
             }
+           
         })
         .catch((error) => {
             console.log("error");
