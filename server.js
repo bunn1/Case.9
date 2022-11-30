@@ -35,14 +35,11 @@ app.use(
 );
 
 
-
-
 // handle method post - request body as json 
 // if app uses upload files - route actions before this step...
 // ========================================
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 
 
 // routes
@@ -75,12 +72,12 @@ app.use('/user', routeUser);
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries
 
-// app.locals.berries = "Strawberry"
+app.locals.berries = "Strawberry"
 
-// app.get('/about', (req, res) => {
-//     res.locals.pears = "Clara Frijs"; 
-//     res.render("apples", {site: SITE_NAME, apples: "Ingrid Marie", id: req.session.id })
-// });
+app.get('/about', (req, res) => {
+    res.locals.pears = "Clara Frijs"; 
+    res.render("about", {site: SITE_NAME, apples: "Ingrid Marie", id: req.session.id })
+});
 
 
 // static files | folders
