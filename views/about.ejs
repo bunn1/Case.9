@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,49 +8,51 @@
     <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
     <title>About Tweet</title>
 </head>
+
 <body>
 
-     <!-- include header -->
-     <%- include("./partials/header.ejs") %>
+    <hr>
+    <!-- include header -->
+    <%- include("./partials/header.ejs") %>
 
-     <h1>Tweets</h1>
- 
-     <h3>Add Tweet!</h3>
- 
-     <div class="row">
-         <form action="/tweet" method="POST" class="col s12">
-             <div class="row">
-                 <div class="input-field">
-                     <input type="text" id="title" name="title">
-                     <label for="title">Title</label>
-                 </div>
-             </div>
- 
-             <div class="row">
-                 <div class="input-field">
-                     <select id="status" name="status">
-                         <option value="public" selected>Public</option>
-                         <option value="private">Private</option>
-                     </select>
-                     <label for="status">Status</label>
-                 </div>
-             </div>
- 
-             <div class="row">
-                 <div class="input-field">
-                     <h5>Tell Us Your Tweet:</h5>
-                     <textarea id="body" name="body"></textarea>
-                 </div>
-             </div>
- 
-             <div class="row">
-                 <input type="submit" value="Save" class="btn">
-                 <a href="/dashboard" class="btn orange">Cancel</a>
-             </div>
-         </form>
 
-<hr>
 
-      
+    <h1>Add Tweet!</h1>
+
+
+    <form action="createTweet" method="POST">
+
+        <div class="input-field">
+            <label for="status">Användar Namn</label>
+            <input type="text" name="username" id="text">
+
+            <label for="status">Tweet Innehåll</label>
+            <textarea id="body" name="textcontent"></textarea>
+        </div>
+
+
+        <div class="row">
+            <div class="input-field">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="public" selected>Public</option>
+                    <option value="private">Private</option>
+                </select>
+
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <label for="status">Delete Or Save Tweet!</label>
+            <input type="submit" value="Save" class="btn">
+            <input type="submit" value="Delete" class="btn">
+
+            <!-- <a href="/dashboard" class="btn orange">Cancel</a> -->
+        </div>
+    </form>
+    <hr>
+
 </body>
+
 </html>

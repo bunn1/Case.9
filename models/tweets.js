@@ -9,7 +9,15 @@ const postSchema = new Schema({
     },
     username: {
         type: 'String',
-        required: 'true'
+        required: true,
+    },
+    textcontent: {
+        type: 'String',
+        required: true
+    },
+    title: {
+        type: 'String',
+        required: true
     }
 })
 
@@ -20,4 +28,3 @@ export { postSchema };
 
 
 
-s

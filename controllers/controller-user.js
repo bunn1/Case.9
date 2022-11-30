@@ -5,6 +5,7 @@ let db = await connectDatabase();
 // models | Schemas
 import { UserSchema } from '../models/UserSchema.js';
 import bcrypt from 'bcrypt';
+import { postSchema } from '../models/tweets.js';
 
 
 const saltRounds = 10;
@@ -70,4 +71,18 @@ async function getUsername(username) {
     return await db.collection("users").findOne({username: username});
 };
 
-export { listUsers, addUser, loginUser };
+
+async function getAllTweets(req, res) {
+    const Tweets = await Schema.find()
+    res.render('about', Tweets);
+}
+
+
+// nytt --------------------------------------
+async function createTweet (req, res) { 
+    
+    return await db.collection("tweets").insertOne(req.body)
+}
+
+
+export { listUsers, addUser, loginUser, getAllTweets, createTweet };
