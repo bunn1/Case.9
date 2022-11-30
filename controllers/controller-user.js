@@ -5,7 +5,8 @@ let db = await connectDatabase();
 // models | Schemas
 import { UserSchema } from '../models/UserSchema.js';
 import bcrypt from 'bcrypt';
-import { postSchema } from '../models/tweets.js';
+// import { postSchema } from '../models/tweets.js';
+import {tweetSchema } from '../models/tweets.js'
 
 
 const saltRounds = 10;
@@ -15,7 +16,7 @@ async function listUsers() {
 
     return users;
 }
-
+// hej
 async function addUser(obj) {
 
     // check if obj passes schema validation
@@ -71,17 +72,38 @@ async function getUsername(username) {
     return await db.collection("users").findOne({username: username});
 };
 
-
 async function getAllTweets(req, res) {
-    const Tweets = await Schema.find()
-    res.render('about', Tweets);
+    let newTweets = await db.collection("newTweets").find({}).toArray()
+    console.log(newTweets);
+    res.render('about', newTweets);
 }
 
 
-// nytt --------------------------------------
-async function createTweet (req, res) { 
-    
-    return await db.collection("tweets").insertOne(req.body)
+async function createTweet (req, res) {
+    try {
+        const { username, textContent, status } = req.body;
+console.log(req.body);
+
+        const newTweet = await db.collection('newTweets').insertOne({
+            createdAt: new Date().toLocaleString("sv-SE"),
+            userName: username,
+            textContent: textContent,
+            status: status
+        })
+
+   let newTweets = await db.collection("newTweets").find({}).toArray()
+        console.log(newTweets);
+        res.render("tweet", {
+            success: true,
+            message: "Create tweet success",
+            data: newTweets
+        })
+    } catch (error) {
+        res.render("index", {
+            success: false,
+            message: "Create tweet failed"
+        })
+    }
 }
 
 

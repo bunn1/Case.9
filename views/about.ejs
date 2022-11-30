@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" media="screen" />
+<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-dark.css" media="screen and (prefers-color-scheme: dark)" />
     <title>About Tweet</title>
 </head>
 
@@ -15,21 +17,17 @@
     <!-- include header -->
     <%- include("./partials/header.ejs") %>
 
-
-
     <h1>Add Tweet!</h1>
 
-
-    <form action="createTweet" method="POST">
+    <form action="/user/createTweet" method="POST">
 
         <div class="input-field">
             <label for="status">Användar Namn</label>
             <input type="text" name="username" id="text">
 
             <label for="status">Tweet Innehåll</label>
-            <textarea id="body" name="textcontent"></textarea>
+            <textarea id="body" name="textContent"></textarea>
         </div>
-
 
         <div class="row">
             <div class="input-field">

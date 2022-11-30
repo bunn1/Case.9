@@ -4,7 +4,7 @@ const router = express.Router();
 
 // render page using ejs
 router.get("/", (req, res) => {
-        res.render("index", {site: SITE_NAME, username: req.session.username });
+        res.render("index", {site: SITE_NAME});
 });
 
 export default router;

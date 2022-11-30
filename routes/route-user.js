@@ -1,10 +1,11 @@
 import express from "express";
 import { SITE_NAME } from "../configs.js";
 
+
 // 
 const router = express.Router();
 
-import { listUsers, addUser, loginUser, getAllTweets } from "../controllers/controller-user.js";
+import { listUsers, addUser, loginUser, getAllTweets, createTweet } from "../controllers/controller-user.js";
 
 router.get("/", (req, res) => {
     res.render("user", { site: SITE_NAME, username: req.session.username });
@@ -28,8 +29,10 @@ router.get("/logout", (req, res) => {
 
 
 // nytt 30/11 -----------------------------
-router.get("about", getAllTweets)
+router.get("/about", getAllTweets)
 // router.post('/createtweet', createTweet) ;
+
+router.post('/createTweet', createTweet)
 
 
 

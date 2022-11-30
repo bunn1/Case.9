@@ -1,27 +1,31 @@
 // Text
 import Schema from 'validate';
 
-const postSchema = new Schema({
+const tweetSchema = new Schema({
     status: {
         type: 'String',
         default: 'public',
         enum: ['public', 'private']
     },
-    username: {
+    userName: {
         type: 'String',
         required: true,
     },
-    textcontent: {
+    textContent: {
         type: 'String',
         required: true
     },
     title: {
         type: 'String',
         required: true
+    },
+    createdAt: {
+        type: 'String',
+        required: true
     }
 })
 
-export { postSchema };
+export { tweetSchema };
 
 
 

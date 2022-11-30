@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweets</title>
+</head>
+<body>
+    
+    <% if (data) { %> 
+        <% data.forEach(tweet => { %>
+       <div>Användarnamn: <%= tweet.userName %></div>
+       <div>skrevs: <%= tweet.createdAt %></div>
+       <p>tweet: <%= tweet.textContent %></p>
+       <div>public: <%= tweet.status %></div>
+       <hr />
+       <% }) %>  
+       <% } %>
+      
+
+
+</body>
+</html>

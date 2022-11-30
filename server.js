@@ -5,6 +5,7 @@ import session from "express-session";
 
 // local modules
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
+import { getAllTweets } from "./controllers/controller-user.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 
@@ -72,14 +73,14 @@ app.use('/user', routeUser);
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries
 
-app.locals.berries = "Strawberry"
+// app.locals.berries = "Strawberry"
 
 app.get('/about', (req, res) => {
-    res.locals.pears = "Clara Frijs"; 
-    res.render("about", {site: SITE_NAME, apples: "Ingrid Marie", id: req.session.id })
+    
+    res.render("about")
 });
 
-
+// app.get('/about', getAllTweets)
 // static files | folders
 // ========================================
 app.use(express.static("./public"));
