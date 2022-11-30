@@ -1,3 +1,4 @@
+// Text
 import Schema from 'validate';
 
 const postSchema = new Schema({
