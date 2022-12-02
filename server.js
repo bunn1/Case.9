@@ -9,7 +9,7 @@ import { getAllTweets } from "./controllers/controller-user.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 
-
+import {deleteTweet} from './controllers/controller-user.js'
 // express app environment
 // ========================================
 const app = express();
@@ -68,7 +68,14 @@ app.use('/start', routeStart);
 app.use('/home', routeStart);
 app.use('/user', routeUser);
 
+// Ej godtagbar
+app.get('/deleteTweet/:id', (req, res) => {
+    console.log(req.params.id);
+    deleteTweet(req.params.id).then((data) => {
+        console.log("Hejsan", deleteTweet)
+    });
 
+});
 
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries

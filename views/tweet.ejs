@@ -1,24 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tweets</title>
 </head>
+
 <body>
-    
-    <% if (data) { %> 
+    <div id="tweets">
+        <% if (data) { %>
         <% data.forEach(tweet => { %>
-       <div>Användarnamn: <%= tweet.userName %></div>
-       <div>skrevs: <%= tweet.createdAt %></div>
-       <p>tweet: <%= tweet.textContent %></p>
-       <div>public: <%= tweet.status %></div>
-       <hr />
-       <% }) %>  
-       <% } %>
-      
+        <div>Användarnamn: <%= tweet.userName %></div>
+        <div>Tweet: <%= tweet.createdAt %></div>
+        <p>Tweet: <%= tweet.textContent %></p>
+        <div>Status: <%= tweet.status %></div>
+        <button data-id="<%= tweet._id %>">Radera</button>
+        <button edit-id="<%= tweet._id %>">Edit</button>
+        <hr />
+        <% }) %>
+        <% } %>
+    </div>
+
+    <script>
+        const tweets = document.getElementById("tweets");
+
+        tweets.addEventListener("click", (event) => {
+
+         
+
+            if (event.target.nodeName == "BUTTON") {
+
+                console.log(event.target.getAttribute("data-id"));
+
+                const id = event.target.getAttribute("data-id");
+
+                fetch("/deleteTweet/" + id, {}).then((data) => {
+
+                });
+            }
+        })
+
+
+            // const editTweet = document.getElementById("tweets");
+
+            // editTweet.addEventListener("click", (event) => {
+
+            //     console.log(event.target.getAttribute("edit-id"));
+
+            //     if (event.target.nodeName == "BUTTON"){
+            //         const id = event.target.getAttribute("edit-id")
+            //     }
+
+            // })
+   
+        
+        
+
+
+    </script>
+
+
+
 
 
 </body>
+
 </html>
+

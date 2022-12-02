@@ -7,7 +7,7 @@ import { UserSchema } from '../models/UserSchema.js';
 import bcrypt from 'bcrypt';
 // import { postSchema } from '../models/tweets.js';
 import {tweetSchema } from '../models/tweets.js'
-
+import {ObjectId} from 'mongodb'
 
 const saltRounds = 10;
 // Hitta specifik user i databasen och sen returneras den.
@@ -78,6 +78,11 @@ async function getAllTweets(req, res) {
     res.render('about', newTweets);
 }
 
+// async function getAllTweets(req, res) {
+//     const Tweets = await tweetSchema.find();
+//     res.render("index", Tweets);
+//     }
+
 
 async function createTweet (req, res) {
     try {
@@ -106,5 +111,30 @@ console.log(req.body);
     }
 }
 
+async function deleteTweet (id) {
+   
+    try {
+        console.log(id);
 
-export { listUsers, addUser, loginUser, getAllTweets, createTweet };
+        const objId = new ObjectId(id)
+
+        console.log(objId);
+
+        const result = db.collection("newTweets").deleteOne({_id: objId})
+
+        if (result.deletedCount == 0) {
+
+            throw {message: "no delete was made"};
+        }
+    } catch (err) {
+        console.log(err.message);
+    } finally {
+        // res.redirect('/')
+    }
+   
+}
+
+export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet };
+
+
+
