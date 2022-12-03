@@ -25,11 +25,7 @@
 
     <script>
         const tweets = document.getElementById("tweets");
-
         tweets.addEventListener("click", (event) => {
-
-         
-
             if (event.target.nodeName == "BUTTON") {
 
                 console.log(event.target.getAttribute("data-id"));
@@ -42,23 +38,23 @@
             }
         })
 
+        // hej
 
-            // const editTweet = document.getElementById("tweets");
+            const editTweets = document.getElementById("tweets");
 
-            // editTweet.addEventListener("click", (event) => {
+            editTweets.addEventListener("click", (event) => {
 
-            //     console.log(event.target.getAttribute("edit-id"));
+                if (event.target.nodeName == "BUTTON"){
 
-            //     if (event.target.nodeName == "BUTTON"){
-            //         const id = event.target.getAttribute("edit-id")
-            //     }
+                    console.log(event.target.getAttribute("edit-id"));
 
-            // })
+                    const id = event.target.getAttribute("edit-id")
+                //     fetch("editTweet" + id, {}).then((data) => {
+
+                //     })
+                 }
+            })
    
-        
-        
-
-
     </script>
 
 

@@ -131,10 +131,31 @@ async function deleteTweet (id) {
     } finally {
         // res.redirect('/')
     }
-   
 }
 
-export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet };
+
+async function editTweets (id) {
+    try {
+        console.log(id);
+
+        const objId = new ObjectId(id)
+
+        console.log(objId);
+
+        const result = db.collection("newTweets").editOne({_id: objId})
+
+        if (result.editCount == 0) {
+
+            throw {message: "no edit was made"};
+        }
+    } catch (err) {
+        console.log(err.message);
+    } finally {
+        // res.redirect('/')
+    }
+}
+
+export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, editTweets };
 
 
 
