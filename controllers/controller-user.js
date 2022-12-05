@@ -134,9 +134,9 @@ async function deleteTweet (id) {
 }
 
 
-async function editTweets (id) {
+async function updateTweet (id) {
     try {
-        console.log(id);
+        
 
         const objId = new ObjectId(id)
 
@@ -155,7 +155,7 @@ async function editTweets (id) {
     }
 }
 
-export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, editTweets };
+export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet };
 
 
 
