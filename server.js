@@ -10,7 +10,7 @@ import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 
 import {deleteTweet} from './controllers/controller-user.js'
-import {editTweets} from './controllers/controller-user.js'
+import {updateTweet} from './controllers/controller-user.js'
 // express app environment
 // ========================================
 const app = express();
@@ -73,15 +73,15 @@ app.use('/user', routeUser);
 app.get('/deleteTweet/:id', (req, res) => {
     console.log(req.params.id);
     deleteTweet(req.params.id).then((data) => {
-        console.log("Hejsan", deleteTweet)
+       
     });
 
 });
 
-app.get('/editTweets/:id', (req, res) => {
+app.get('/updateTweet/:id/edit', (req, res) => {
     console.log(req.params.id);
-    editTweet(req.params.id).then((data) =>{
-        console.log("Goddag", editTweets)
+    updateTweet(req.params.id).then((data) =>{
+       
     })
 })
 

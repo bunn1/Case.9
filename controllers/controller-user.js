@@ -74,9 +74,9 @@ async function getUsername(username) {
 
 async function getAllTweets(req, res) {
     let newTweets = await db.collection("newTweets").find({}).toArray()
-    console.log(newTweets);
+                                                        
     res.render('about', newTweets);
-}
+}                                                           
 
 // async function getAllTweets(req, res) {
 //     const Tweets = await tweetSchema.find();
@@ -97,7 +97,7 @@ console.log(req.body);
         })
 
    let newTweets = await db.collection("newTweets").find({}).toArray()
-        console.log(newTweets);
+        // console.log(newTweets);
         res.render("tweet", {
             success: true,
             message: "Create tweet success",
@@ -114,11 +114,11 @@ console.log(req.body);
 async function deleteTweet (id) {
    
     try {
-        console.log(id);
+        // console.log(id);
 
         const objId = new ObjectId(id)
 
-        console.log(objId);
+        // console.log(objId);
 
         const result = db.collection("newTweets").deleteOne({_id: objId})
 
@@ -135,7 +135,7 @@ async function deleteTweet (id) {
 
 
 async function updateTweet (id) {
-    try {
+    // try {
         
 
         const objId = new ObjectId(id)
@@ -143,16 +143,16 @@ async function updateTweet (id) {
         console.log(objId);
 
         const result = db.collection("newTweets").editOne({_id: objId})
+    console.log(result);
+    //     if (result.editCount == 0) {
 
-        if (result.editCount == 0) {
-
-            throw {message: "no edit was made"};
-        }
-    } catch (err) {
-        console.log(err.message);
-    } finally {
-        // res.redirect('/')
-    }
+    //         throw {message: "no edit was made"};
+    //     }
+    // } catch (err) {
+    //     console.log(err.message);
+    // } finally {
+    //     // res.redirect('/')
+     
 }
 
 export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet };
