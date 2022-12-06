@@ -134,16 +134,16 @@ async function deleteTweet (id) {
 }
 
 
-async function updateTweet (id) {
-    // try {
+// async function updateTweet (id) {
+//     // try {
         
 
-        const objId = new ObjectId(id)
+//         const objId = new ObjectId(id)
 
-        console.log(objId);
+//         console.log(objId);
 
-        const result = db.collection("newTweets").editOne({_id: objId})
-    console.log(result);
+//         const result = db.collection("newTweets").editOne({_id: objId})
+//     console.log(result);
     //     if (result.editCount == 0) {
 
     //         throw {message: "no edit was made"};
@@ -153,9 +153,9 @@ async function updateTweet (id) {
     // } finally {
     //     // res.redirect('/')
      
-}
+// }
 
-export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet };
+export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet };
 
 
 

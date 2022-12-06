@@ -3,6 +3,8 @@
 import express from "express";
 import session from "express-session";
 
+// import { ObjectId } from "mongodb";
+
 // local modules
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
 import { getAllTweets } from "./controllers/controller-user.js";
@@ -85,14 +87,14 @@ app.get('/deleteTweet/:id', (req, res) => {
 //     })
 // })
 
-app.get('/updateTweet/:id', (req, res) => {
-    console.log(req.params.id);
+// app.get('/updateTweet/:id', (req, res) => {
+//     console.log(req.params.id);
 
-    // todo get tweet to update, tip use tweetmodel
-    const tweets = await tweets.findOne()
+//     // todo get tweet to update, tip use tweetmodel
+//     const tweets = await tweets.findOne()
 
-    res.send('hello' + req.params.id)
-})
+//     res.send('hello' + req.params.id)
+// })
 
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries
