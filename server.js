@@ -87,23 +87,23 @@ app.get('/deleteTweet/:id', (req, res) => {
 //     })
 // })
 
-// app.get('/updateTweet/:id', (req, res) => {
-//     console.log(req.params.id);
+app.get('/updateTweet/:id', (req, res) => {
+    console.log(req.params.id);
 
-//     // todo get tweet to update, tip use tweetmodel
-//     const tweets = await tweets.findOne()
+    // todo get tweet to update, tip use tweetmodel
+    // const tweets = await tweets.findOne()
 
-//     res.send('hello' + req.params.id)
-// })
+    res.send('hello' + req.params.id)
+})
 
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries
 
 // app.locals.berries = "Strawberry"
 
-app.get('/about', (req, res) => {
+app.get('/makeTweet', (req, res) => {
     
-    res.render("about")
+    res.render("makeTweet")
 });
 
 // app.get('/about', getAllTweets)

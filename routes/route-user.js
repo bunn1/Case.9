@@ -5,7 +5,7 @@ import { SITE_NAME } from "../configs.js";
 // 
 const router = express.Router();
 
-import { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet } from "../controllers/controller-user.js";
+import { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet } from "../controllers/controller-user.js";
 
 router.get("/", (req, res) => {
     res.render("user", { site: SITE_NAME, username: req.session.username });
@@ -23,15 +23,15 @@ router.get("/logout", (req, res) => {
 
     
     req.session.destroy();
-    res.render("index", { site: SITE_NAME, username: "" });
+    res.render("start", { site: SITE_NAME, username: "" });
 });
 
 router.post('/deleteTweet', deleteTweet)
 
-// router.post('/editTweets', updateTweet)
+router.post('/updateTweet', updateTweet)
 
 // nytt 30/11 -----------------------------
-router.get("/about", getAllTweets)
+router.get("/makeTweet", getAllTweets)
 // router.post('/createtweet', createTweet) ;
 
 router.post('/createTweet', createTweet)

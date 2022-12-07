@@ -75,7 +75,7 @@ async function getUsername(username) {
 async function getAllTweets(req, res) {
     let newTweets = await db.collection("newTweets").find({}).toArray()
                                                         
-    res.render('about', newTweets);
+    res.render('makeTweet', newTweets);
 }                                                           
 
 // async function getAllTweets(req, res) {
@@ -134,28 +134,29 @@ async function deleteTweet (id) {
 }
 
 
-// async function updateTweet (id) {
-//     // try {
+async function updateTweet (id) {
+    try {
         
+        // const objId = new ObjectId(id)
+        
+        const objId = request.params.id
 
-//         const objId = new ObjectId(id)
+        console.log(objId);
 
-//         console.log(objId);
+        const result = db.collection("newTweets").findOne({_id: objId})
+    console.log(result);
+        if (result.editCount == 0) {
 
-//         const result = db.collection("newTweets").editOne({_id: objId})
-//     console.log(result);
-    //     if (result.editCount == 0) {
+            throw {message: "no edit was made"};
+        }
+    } catch (err) {
+        console.log("Something went wrong!");
+    } finally {
+        res.redirect('/')
+    }  
+}
 
-    //         throw {message: "no edit was made"};
-    //     }
-    // } catch (err) {
-    //     console.log(err.message);
-    // } finally {
-    //     // res.redirect('/')
-     
-// }
-
-export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet };
+export { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet };
 
 
 

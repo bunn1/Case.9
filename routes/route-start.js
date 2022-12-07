@@ -4,7 +4,15 @@ const router = express.Router();
 
 // render page using ejs
 router.get("/", (req, res) => {
-        res.render("index", {site: SITE_NAME});
+        res.render("start", {site: SITE_NAME});
+});
+
+
+
+
+// render page using ejs
+router.get("/makeTweet", (req, res) => {
+        res.render("makeTweet", {site: SITE_NAME});
 });
 
 export default router;
