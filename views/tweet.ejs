@@ -10,51 +10,87 @@
 
 <body>
     <div id="tweets">
+
         <% if (data) { %>
         <% data.forEach(tweet => { %>
-        <div>Användarnamn: <%= tweet.userName %></div>
-        <div>Tweet: <%= tweet.createdAt %></div>
-        <p>Tweet: <%= tweet.textContent %></p>
-        <div>Status: <%= tweet.status %></div>
-        <button data-id="<%= tweet._id %>">Radera</button>
-        <button edit-id="<%= tweet._id %>">Edit</button>
-        <hr />
+        <section id="tweet-<%=tweet._id %>">
+            <div>Användarnamn: <%= tweet.userName %></div>
+            <div>Tweet: <%= tweet.createdAt %></div>
+            <p>Tweet: <%= tweet.textContent %></p>
+            <div>Status: <%= tweet.status %></div>
+            <button data-id="<%= tweet._id %>">Radera</button>
+            <button edit-id="<%= tweet._id %>">Edit</button>
+            <hr />
+        </section>
         <% }) %>
         <% } %>
     </div>
 
     <script>
         const tweets = document.getElementById("tweets");
+
         tweets.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            console.log(event.target);
+
             if (event.target.nodeName == "BUTTON") {
 
-                console.log(event.target.getAttribute("data-id"));
+                // console.log(event.target.getAttribute("data-id"));
 
                 const id = event.target.getAttribute("data-id");
 
-                fetch("/deleteTweet/" + id, {}).then((data) => {
+                const options = {
 
-                });
+                    method: 'PUT',
+
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify({
+                        id: id
+                    })
+
+                }
+
+                fetch("/user/deleteTweet", options)
+
+                    .then(response => response.json())
+
+                    .then((data) => {
+
+                        console.log("data", data);
+
+                        if (data.result == "success") {
+
+                            document.getElementById("tweet-" + id).remove();
+
+                        }
+
+                    });
+
             }
+
         })
 
         // hej
 
-            const editTweets = document.getElementById("tweets");
+        const editTweets = document.getElementById("tweets");
 
-            editTweets.addEventListener("click", (event) => {
+        editTweets.addEventListener("click", (event) => {
 
-                if (event.target.nodeName == "BUTTON"){
+            if (event.target.nodeName == "BUTTON") {
 
-                    console.log(event.target.getAttribute("edit-id"));
+                console.log(event.target.getAttribute("edit-id"));
 
-                    const id = event.target.getAttribute("edit-id")
+                const id = event.target.getAttribute("edit-id")
                 //     fetch("editTweet" + id, {}).then((data) => {
 
                 //     })
-                 }
-            })
-   
+            }
+        })
     </script>
 
 
@@ -64,4 +100,3 @@
 </body>
 
 </html>
-

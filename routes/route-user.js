@@ -26,7 +26,49 @@ router.get("/logout", (req, res) => {
     res.render("start", { site: SITE_NAME, username: "" });
 });
 
-router.post('/deleteTweet', deleteTweet)
+
+// router.post('/deleteTweet', (req, res)=>{
+
+//     deleteTweet().then((data) => {
+//         console.log(data)
+//     })
+// })
+
+// Ej godtagbar
+// router.get('/deleteTweet/:id', (req, res) => {
+//     console.log(req.params.id);
+//     deleteTweet(req.params.id).then((data) => { 
+//         console.log(data)
+//     });
+// });
+
+
+router.put('/deleteTweet', (req, res) => {
+
+    console.log(req.body);
+
+    deleteTweet(req.body.id).then((data) => {
+
+        console.log(data);
+
+        res.json({result: "success", message: "tweet delete"})
+
+    });
+
+});
+
+// router.delete('/deleteTweet/:id', (req, res) => {
+//     deleteTweet.deleteOne(req.params.id, (err, data) => {
+//         if (!err) {
+//             res.status(200).json({code:200, message: 'Tweet Deleted Successfully',
+//             deleteTweet:data})
+//         }
+//     })
+// })
+
+
+
+
 
 router.post('/updateTweet', updateTweet)
 
@@ -90,14 +132,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-// delete tweets
 
-// Delete Story
-// router.delete("/:id", (req, res) => {
-//     Tweets.remove({ _id: req.params.id }).then(() => {
-//       res.redirect("/");
-//     });
-//   });
 
 
 

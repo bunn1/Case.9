@@ -71,14 +71,13 @@ app.use('/start', routeStart);
 app.use('/home', routeStart);
 app.use('/user', routeUser);
 
-// Ej godtagbar
-app.get('/deleteTweet/:id', (req, res) => {
-    console.log(req.params.id);
-    deleteTweet(req.params.id).then((data) => {
-       
-    });
+// // Ej godtagbar
+// app.get('/deleteTweet/:id', (req, res) => {
+//     console.log(req.params.id);
+//     deleteTweet(req.params.id).then((data) => { 
+//     });
 
-});
+// });
 
 // app.get('/updateTweet/:id/edit', (req, res) => {
 //     console.log(req.params.id);
