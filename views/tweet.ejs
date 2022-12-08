@@ -9,8 +9,9 @@
 </head>
 
 <body>
-    <div id="tweets">
 
+
+    <div id="tweets">
         <% if (data) { %>
         <% data.forEach(tweet => { %>
         <section id="tweet-<%=tweet._id %>">
@@ -25,6 +26,17 @@
         <% }) %>
         <% } %>
     </div>
+
+
+    <form id="editForm" hidden>
+        <h2>Edit quote</h2>
+        <input type="text" placeholder="name" name="name" />
+        <input type="text" placeholder="tweet" name="tweet" />
+        <button type="submit">Save Change</button>
+      </form>
+
+
+
 
     <script>
         const tweets = document.getElementById("tweets");

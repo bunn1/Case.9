@@ -7,11 +7,11 @@ import session from "express-session";
 
 // local modules
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
-import { getAllTweets } from "./controllers/controller-user.js";
+// import { getAllTweets } from "./controllers/controller-user.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 
-import {deleteTweet} from './controllers/controller-user.js'
+// import {deleteTweet} from './controllers/controller-user.js'
 // import {updateTweet} from './controllers/controller-user.js'
 // express app environment
 // ========================================
@@ -71,29 +71,6 @@ app.use('/start', routeStart);
 app.use('/home', routeStart);
 app.use('/user', routeUser);
 
-// // Ej godtagbar
-// app.get('/deleteTweet/:id', (req, res) => {
-//     console.log(req.params.id);
-//     deleteTweet(req.params.id).then((data) => { 
-//     });
-
-// });
-
-// app.get('/updateTweet/:id/edit', (req, res) => {
-//     console.log(req.params.id);
-//     updateTweet(req.params.id).then((data) =>{
-       
-//     })
-// })
-
-app.get('/updateTweet/:id', (req, res) => {
-    console.log(req.params.id);
-
-    // todo get tweet to update, tip use tweetmodel
-    // const tweets = await tweets.findOne()
-
-    res.send('hello' + req.params.id)
-})
 
 // pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
 // apples, pears, plums, berries

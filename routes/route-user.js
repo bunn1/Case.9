@@ -1,11 +1,12 @@
 import express from "express";
 import { SITE_NAME } from "../configs.js";
 
-
-// 
 const router = express.Router();
 
-import { listUsers, addUser, loginUser, getAllTweets, createTweet, deleteTweet, updateTweet } from "../controllers/controller-user.js";
+import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
+
+ import {  getAllTweets, createTweet, deleteTweet,  } from "../controllers/controller-tweet.js";
+
 
 router.get("/", (req, res) => {
     res.render("user", { site: SITE_NAME, username: req.session.username });
@@ -43,6 +44,42 @@ router.get("/logout", (req, res) => {
 // });
 
 
+
+
+// router.delete('/deleteTweet/:id', (req, res) => {
+//     deleteTweet.deleteOne(req.params.id, (err, data) => {
+//         if (!err) {
+//             res.status(200).json({code:200, message: 'Tweet Deleted Successfully',
+//             deleteTweet:data})
+//         }
+//     })
+// })
+
+
+// Kvälls kod 7 dec
+router.get('/editTweet/:id', (req, res) => {
+    res.render(req.params.id)
+    tweet.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, (err, docs)=>{
+        if(err){
+            console.log("Cant retrieve dataand edit because of some problem!")
+        }else{
+            res.render('edit');
+        }
+    })
+})
+
+
+
+
+
+
+// nytt 30/11 -----------------------------
+router.get("/makeTweet", getAllTweets)
+// router.post('/createtweet', createTweet) ;
+
+router.post('/createTweet', createTweet)
+
+
 router.put('/deleteTweet', (req, res) => {
 
     console.log(req.body);
@@ -56,29 +93,6 @@ router.put('/deleteTweet', (req, res) => {
     });
 
 });
-
-// router.delete('/deleteTweet/:id', (req, res) => {
-//     deleteTweet.deleteOne(req.params.id, (err, data) => {
-//         if (!err) {
-//             res.status(200).json({code:200, message: 'Tweet Deleted Successfully',
-//             deleteTweet:data})
-//         }
-//     })
-// })
-
-
-
-
-
-router.post('/updateTweet', updateTweet)
-
-// nytt 30/11 -----------------------------
-router.get("/makeTweet", getAllTweets)
-// router.post('/createtweet', createTweet) ;
-
-router.post('/createTweet', createTweet)
-
-
 
 router.post("/register", (req, res) => {
 
