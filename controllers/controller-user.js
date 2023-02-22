@@ -93,12 +93,6 @@ async function getUsername(username) {
 };
 
 
-
-// async function getAllTweets(req, res) {
-//     const Tweets = await tweetSchema.find();
-//     res.render("index", Tweets);
-//     }
-
 export {
     listUsers,
     addUser,
