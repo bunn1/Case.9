@@ -4,9 +4,6 @@
 // const router = express.Router();
 
 
-
-
-
 // router.post('/updateTweet', updateTweet)
 
 // // nytt 30/11 -----------------------------
