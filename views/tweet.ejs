@@ -17,28 +17,22 @@
         <section id="tweet-<%=tweet._id %>">
             <div>Användarnamn: <%= tweet.userName %></div>
             <div>Tweet: <%= tweet.createdAt %></div>
-            <p>Tweet: <%= tweet.textContent %></p>
+            <p data-text><%= tweet.textContent %></p>
             <div>Status: <%= tweet.status %></div>
             <button data-id="<%= tweet._id %>">Radera</button>
-            <button edit-id="<%= tweet._id %>">Edit</button>
+            <button edit-id="<%= tweet._id %>">Spara</button>
+
+         
             <hr />
         </section>
         <% }) %>
         <% } %>
     </div>
 
-
-    <form id="editForm" hidden>
-        <h2>Edit quote</h2>
-        <input type="text" placeholder="name" name="name" />
-        <input type="text" placeholder="tweet" name="tweet" />
-        <button type="submit">Save Change</button>
-      </form>
-
-
-
+    <hr>
 
     <script>
+
         const tweets = document.getElementById("tweets");
 
         tweets.addEventListener("click", (event) => {
@@ -64,7 +58,6 @@
                     body: JSON.stringify({
                         id: id
                     })
-
                 }
 
                 fetch("/user/deleteTweet", options)
@@ -78,36 +71,57 @@
                         if (data.result == "success") {
 
                             document.getElementById("tweet-" + id).remove();
-
                         }
-
                     });
-
-            }
-
-        })
-
-        // hej
-
-        const editTweets = document.getElementById("tweets");
-
-        editTweets.addEventListener("click", (event) => {
-
-            if (event.target.nodeName == "BUTTON") {
-
-                console.log(event.target.getAttribute("edit-id"));
-
-                const id = event.target.getAttribute("edit-id")
-                //     fetch("editTweet" + id, {}).then((data) => {
-
-                //     })
             }
         })
+
+        
+                    const editTweet = document.getElementById("tweets");
+
+                    editTweet.addEventListener("click", (event) => {
+
+                                event.preventDefault();
+
+                                console.log(event.target);
+
+                                if (event.target.nodeName == "BUTTON") {
+
+                                    // console.log(event.target.getAttribute("data-id"));
+
+                                    const id = event.target.getAttribute("edit-id");
+
+                                    console.log(id)
+                                    const options = {
+
+                                        method: 'PUT',
+
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+
+                                        body: JSON.stringify({
+                                            id: id
+                                        })
+                                    }
+                                }
+                                })
+
+                    //                 const editTweets = document.getElementById("tweets");
+
+                    //                 editTweets.addEventListener("click", (event) => {
+
+                    //                     if (event.target.nodeName == "BUTTON") {
+
+                    //                         console.log(event.target.getAttribute("edit-id"));
+
+                    //                         const id = event.target.getAttribute("edit-id")
+                    //                         //     fetch("editTweet" + id, {}).then((data) => {
+
+                    //                         //     })
+                    //                     }
+                    //                 })
     </script>
-
-
-
-
 
 </body>
 
