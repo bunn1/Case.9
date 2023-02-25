@@ -5,7 +5,7 @@ const router = express.Router();
 
 import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
 
- import {  getTweetById, createTweet, deleteTweet,  updateTweet} from "../controllers/controller-tweet.js";
+ import {  getTweetById, createTweet, deleteTweet,  updateTweetById} from "../controllers/controller-tweet.js";
 
 
 router.get("/", (req, res) => {
