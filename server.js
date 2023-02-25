@@ -1,31 +1,22 @@
-// dependencies - import => package.json "type": "module",
+// dependencies 
 // ========================================
 import express from "express";
 import session from "express-session";
-
-// import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
 // local modules
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
-// import { getAllTweets } from "./controllers/controller-user.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
+import { getTweetById , updateTweetById} from './routes/route-edit.js';
 
-// import {deleteTweet} from './controllers/controller-user.js'
-// import {updateTweet} from './controllers/controller-user.js'
 // express app environment
 // ========================================
 const app = express();
 
-
 // express template engine
 // ========================================
 app.set("view engine", "ejs");
-
-
-// middleware
-// ========================================
-
 
 // sessions
 // ========================================
@@ -35,9 +26,7 @@ app.use(
         resave: false,
         saveUninitialized: true,
         cookie: { maxAge: SESSION_MAXAGE },
-    })
-);
-
+    }));
 
 // handle method post - request body as json 
 // if app uses upload files - route actions before this step...
@@ -49,38 +38,30 @@ app.use(express.urlencoded({extended: true}));
 // routes
 // ========================================
 
-// check sessions
-// make sure using next as 3rd argument
 app.get('*', (req, res, next) => {
-
-    // oneliner if condition - ternary operator  ? :  ;
     req.session.views ? req.session.views++ : req.session.views = 1;
-    
-    // show number of times users navigates before session been destroyed
     console.log("req.session.views", req.session.views);
-
-    // authenticated user...should be a property "username" i req.session
     console.log(req.session, req.session.id);
-
     next();
 });
 
+app.get('/tweets/:id/edit', getTweetById);
+
+// update a tweet by id
+app.post('/tweets/:id/edit', updateTweetById);
+// app.post('tweets/:id/edit', updateTweetById);
+
 // use local routes ...
 app.use('/', routeStart);
-app.use('/start', routeStart);
+app.use('/start', routeStart); 
 app.use('/home', routeStart);
 app.use('/user', routeUser);
 
-
-// pass server-side content to render engine - res.locals, app.locals, object as 2 arg res.render(,{})
-// apples, pears, plums, berries
-
-// app.locals.berries = "Strawberry"
-
+// Renderar sidan makeTweet
 app.get('/makeTweet', (req, res) => {
-    
-    res.render("makeTweet")
+    res.render("makeTweet", { tweet: {} });
 });
+
 
 // app.get('/about', getAllTweets)
 // static files | folders
@@ -88,12 +69,7 @@ app.get('/makeTweet', (req, res) => {
 app.use(express.static("./public"));
 
 
-// 404 not found
-// ========================================
-app.use((req, res, next) => {
-    res.status(404).send("Sry - nothing to display");
-    next();
-});
+app.use((req, res) => res.status(404).send("Sry - nothing to display"));
 
 
 // 500 server error
@@ -110,6 +86,11 @@ app.use((err, req, res, next) => {
 
 // listen on server requests
 // ========================================
-app.listen(PORT, (req, res) => {
-    console.log(`Server running on port ${PORT}`);
-});
+
+// Avmarkerat 23 feb ---------------------------------------
+// app.listen(PORT, (req, res) => {e
+//     console.log(`Server running on port ${PORT}`);
+// });
+// Slut på avmarkerat -----------------------------------
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
