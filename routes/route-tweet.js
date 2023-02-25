@@ -1,30 +1,43 @@
-// import express from 'express';
-// import {  getAllTweets, createTweet, deleteTweet, updateTweet } from "../controllers/controller-tweet.js";
+import express from 'express';
+import { ObjectId } from 'mongodb';
+import { getTweetById, updateTweet } from '../controllers/controller-tweet.js';
 
-// const router = express.Router();
+const router = express.Router();
 
+router.get('/tweets/:id/makeTweet', async (req, res) => {
+try {
+const tweet = await getTweetById(req.params.id);
+res.render('makeTweet', { 
+tweet: tweet
+});
+} catch (err) {
+console.error('Error getting tweet', err);
+res.redirect('/tweets');
+}
+});
 
-// router.post('/updateTweet', updateTweet)
+router.get('/tweets/:id/edit', async (req, res) => {
+    try {
+    const tweet = await getTweetById(req.params.id);
+    res.render('edit', {
+    tweet: tweet
+    });
+    } catch (err) {
+    console.error('Error getting tweet', err);
+    res.redirect('/tweets');
+    }
+    });
 
-// // nytt 30/11 -----------------------------
-// router.get("/makeTweet", getAllTweets)
-// // router.post('/createtweet', createTweet) ;
+router.post('/tweets/:id/edit', updateTweetById);
 
-// router.post('/createTweet', createTweet)
+router.post('/tweets/:id', async (req, res) => {
+    try {
+      await updateTweetById(req.params.id, req.body.text);
+      res.redirect('/tweets');
+    } catch (err) {
+      console.error('Error updating tweet', err);
+      res.redirect('/tweets');
+    }
+  });
 
-
-// router.put('/deleteTweet', (req, res) => {
-
-//     console.log(req.body);
-
-//     deleteTweet(req.body.id).then((data) => {
-
-//         console.log(data);
-
-//         res.json({result: "success", message: "tweet delete"})
-
-//     });
-
-// });
-
-// export default router;
+export default router;
