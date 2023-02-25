@@ -1,15 +1,17 @@
-import connectDatabase from '../configurations/mongodb.js';
+import{ connectDatabase } from '../configurations/mongodb.js';
 let db = await connectDatabase();
 
-import {tweetSchema} from '../models/tweets.js'
+import Tweet from '../models/tweets.js'
 
 import objId from 'mongodb'
 
-async function getAllTweets(req, res) {
-    let newTweets = await db.collection("newTweets").find({}).toArray()
 
-    res.render('makeTweet', newTweets);
+async function getTweetById(req, res) {
+    const tweetId = req.params.id;
+    const tweet = await db .collection('newTweets').findOne({ _id:ObjectId(tweetId) }); 
+    res.render('makeTweet', { tweet });
 }
+
 
 async function createTweet(req, res) {
     try {
@@ -43,9 +45,7 @@ async function createTweet(req, res) {
 }
 
 async function deleteTweet(id) {
-
     try {
-
         console.log(id);
 
         const objId = new ObjectId(id)
@@ -57,9 +57,7 @@ async function deleteTweet(id) {
         if (result.deletedCount == 0) {
 
             throw {message: "no delete was made"};
-
         }
-
         return result;
 
         return {success: true, message: "tweet Deleted id: objId:"};
@@ -74,38 +72,21 @@ async function deleteTweet(id) {
     }
 }
 
-// async function editTweet(id) {
+const updateTweet = async (req, res) => {
+    const { tweetId, tweetText  } = req.body;
 
-//     try {
+    try {
+        const updatedTweet = await Tweet.findOneAndUpdate(
+            { _id: tweetId },
+            { $set: { text: tweetText } },
+            { new: true }
+        );
 
-//         console.log(id);
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Serverfel - försök igen senare!')
+    }
+}
 
-//         const objId = new ObjectId(id)
-
-//         console.log(objId);
-
-//         const result = await db.collection("newTweets").findOneAndUpdate({_id: objId})
-
-//         // if (result.deletedCount == 0) {
-
-//         //     throw {message: "no delete was made"};
-
-//         // }
-
-//         return result;
-
-//         return {success: true, message: "tweet Deleted id: objId:"};
-
-//     } catch (err) {
-//         console.log(err.message);
-//     } finally {
-//         // res.redirect("/")
-
-//         // meddelar klienten att nu är tweeten raderad
-//         return {success: true, message: "tweet Deleted id: objId:"};
-//     }
-// }
-
-
-
-export {createTweet, deleteTweet, getAllTweets}
+export {createTweet, deleteTweet, updateTweet,  getTweetById }
