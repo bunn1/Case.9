@@ -1,17 +1,14 @@
 import{ connectDatabase } from '../configurations/mongodb.js';
-let db = await connectDatabase();
-
 import Tweet from '../models/tweets.js'
+import { ObjectId} from 'mongodb'
 
-import objId from 'mongodb'
-
+let db = await connectDatabase();
 
 async function getTweetById(req, res) {
     const tweetId = req.params.id;
     const tweet = await db .collection('newTweets').findOne({ _id:ObjectId(tweetId) }); 
     res.render('makeTweet', { tweet });
 }
-
 
 async function createTweet(req, res) {
     try {
@@ -89,4 +86,28 @@ const updateTweet = async (req, res) => {
     }
 }
 
-export {createTweet, deleteTweet, updateTweet,  getTweetById }
+// Uppdater tweet i tweets collection med specifikt id genom att använda $set operator. Den uppdaterar tweets username, textcontent och status fältet.
+// Sen omdirigeras användaren till den uppdaterade tweets details sidan.
+const updateTweetById = async (req, res) => {
+    const { id } = req.params;
+    const { username, textContent, status } = req.body;
+  
+    try {
+      const result = await db.collection("tweets").updateOne(
+        { _id: ObjectId(id) },
+        {
+          $set: {
+            username,
+            textContent,
+            status,
+          },
+        }
+      );
+      res.redirect(`/user/${result.upsertedId || id}`);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Something went wrong.");
+    }
+  };
+
+export {createTweet, deleteTweet, getTweetById , updateTweetById}
