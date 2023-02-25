@@ -1,7 +1,8 @@
 // Text
 import Schema from 'validate';
+import mongoose from 'mongoose';
 
-const tweetSchema = new Schema({
+const tweetSchema = new mongoose.Schema({
     status: {
         type: 'String',
         default: 'public',
@@ -20,12 +21,15 @@ const tweetSchema = new Schema({
         required: true
     },
     createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    text: {  
         type: 'String',
-        required: true
-    }
-})
+},
+});
 
-export { tweetSchema };
+export default mongoose.model  ('Tweet',  tweetSchema) ;
 
 
 
