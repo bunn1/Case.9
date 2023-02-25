@@ -1,5 +1,5 @@
 // import database
-import connectDatabase from '../configurations/mongodb.js';
+import{ connectDatabase } from '../configurations/mongodb.js';
 let db = await connectDatabase();
 
 // models | Schemas
@@ -8,9 +8,11 @@ import {
 } from '../models/UserSchema.js';
 import bcrypt from 'bcrypt';
 // import { postSchema } from '../models/tweets.js';
-import {
-    tweetSchema
-} from '../models/tweets.js'
+// import {
+//     tweetSchema
+// } from '../models/tweets.js'
+
+import Tweet from '../models/tweets.js'
 import {
     ObjectId
 } from 'mongodb'
@@ -97,5 +99,6 @@ export {
     listUsers,
     addUser,
     loginUser, 
-    getUsername  
+    getUsername , 
+    Tweet
 };
