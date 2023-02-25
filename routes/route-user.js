@@ -5,7 +5,7 @@ const router = express.Router();
 
 import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
 
- import {  getAllTweets, createTweet, deleteTweet,  } from "../controllers/controller-tweet.js";
+ import {  getTweetById, createTweet, deleteTweet,  updateTweet} from "../controllers/controller-tweet.js";
 
 
 router.get("/", (req, res) => {
@@ -28,53 +28,7 @@ router.get("/logout", (req, res) => {
 });
 
 
-// router.post('/deleteTweet', (req, res)=>{
-
-//     deleteTweet().then((data) => {
-//         console.log(data)
-//     })
-// })
-
-// Ej godtagbar
-// router.get('/deleteTweet/:id', (req, res) => {
-//     console.log(req.params.id);
-//     deleteTweet(req.params.id).then((data) => { 
-//         console.log(data)
-//     });
-// });
-
-
-
-
-// router.delete('/deleteTweet/:id', (req, res) => {
-//     deleteTweet.deleteOne(req.params.id, (err, data) => {
-//         if (!err) {
-//             res.status(200).json({code:200, message: 'Tweet Deleted Successfully',
-//             deleteTweet:data})
-//         }
-//     })
-// })
-
-
-// Kvälls kod 7 dec
-router.get('/editTweet/:id', (req, res) => {
-    res.render(req.params.id)
-    tweet.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, (err, docs)=>{
-        if(err){
-            console.log("Cant retrieve dataand edit because of some problem!")
-        }else{
-            res.render('edit');
-        }
-    })
-})
-
-
-
-
-
-
-// nytt 30/11 -----------------------------
-router.get("/makeTweet", getAllTweets)
+router.get("/makeTweet", getTweetById)
 // router.post('/createtweet', createTweet) ;
 
 router.post('/createTweet', createTweet)
@@ -145,9 +99,5 @@ router.post("/login", (req, res) => {
         res.json(reply);
     });
 });
-
-
-
-
 
 export default router;
