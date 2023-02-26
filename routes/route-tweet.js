@@ -4,6 +4,7 @@ import { getTweetById, updateTweetById } from '../controllers/controller-tweet.j
 
 const router = express.Router();
 
+// Hitta tweet med id från databasen. Därefter renderas makeTweet sidan och tweeten skickas som ett objekt till sidan
 router.get('/tweets/:id/makeTweet', async (req, res) => {
 try {
 const tweet = await getTweetById(req.params.id);
@@ -16,6 +17,7 @@ res.redirect('/tweets');
 }
 });
 
+// Tweeten hämtas från databasen mha getTweetById(). Hittas tweeten i databasen en edit vy till klienten där informationen kan redigeras i ett formulär.
 router.get('/tweets/:id/edit', async (req, res) => {
     try {
     const tweet = await getTweetById(req.params.id);
