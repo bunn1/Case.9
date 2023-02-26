@@ -1,6 +1,6 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
-import { getTweetById, updateTweet } from '../controllers/controller-tweet.js';
+import { getTweetById, updateTweetById } from '../controllers/controller-tweet.js';
 
 const router = express.Router();
 
@@ -28,8 +28,8 @@ router.get('/tweets/:id/edit', async (req, res) => {
     }
     });
 
-router.post('/tweets/:id/edit', updateTweetById);
 
+// Routen tar hand om formulärdata och skickar den till updateTweetById funktionen för att uppdatera tweeten i databasen.
 router.post('/tweets/:id', async (req, res) => {
     try {
       await updateTweetById(req.params.id, req.body.text);
@@ -39,5 +39,9 @@ router.post('/tweets/:id', async (req, res) => {
       res.redirect('/tweets');
     }
   });
+
+  // router.put('/tweets/:id', updateTweetById);
+
+  // router.post('/tweets/:id/edit', updateTweetById);
 
 export default router;
