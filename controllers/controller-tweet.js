@@ -4,12 +4,14 @@ import { ObjectId} from 'mongodb'
 
 let db = await connectDatabase();
 
+// Hämtar en tweet från en MongDB-databas baserat på dess ID och visar sedan makeTweet vyn på websidan
 async function getTweetById(req, res) {
     const tweetId = req.params.id;
     const tweet = await db .collection('newTweets').findOne({ _id:ObjectId(tweetId) }); 
     res.render('makeTweet', { tweet });
 }
 
+// Skapar en ny tweet och sätter in den i databasen
 async function createTweet(req, res) {
     try {
         const {
@@ -26,6 +28,7 @@ async function createTweet(req, res) {
             status: status
         })
 
+        // Efter att den nya tweeten har satts in i databasen fångas alla tweets från newTweets genom find metoden och omvandlar resultat till en array. Därefter renderas en tweet med ny data eller error.
         let newTweets = await db.collection("newTweets").find({}).toArray()
         // console.log(newTweets);
         res.render("tweet", {
@@ -41,6 +44,7 @@ async function createTweet(req, res) {
     }
 }
 
+// Delete en tweet
 async function deleteTweet(id) {
     try {
         console.log(id);
@@ -69,6 +73,7 @@ async function deleteTweet(id) {
     }
 }
 
+// Uppdatera befintlig tweet med hjälp av Mongoose. tweetId och tweetText extraheras från req.body. findOneAndUpdate söker efter tweeten med matchande tweetId och uppdaterar dess text och returnerar  den nya tweeten
 const updateTweet = async (req, res) => {
     const { tweetId, tweetText  } = req.body;
 
