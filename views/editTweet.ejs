@@ -18,12 +18,37 @@
     </style>
   </head>
   <body>
+
     <h1>Edit Tweet</h1>
-    <form method="POST" action="/tweets/<%= tweet._id %>/edit">
-      <label for="text">Text:</label>
-      <input type="text" id="text" name="text" value="<%= tweet.text %>">
-      <input type="submit" value="Save">
+    <!-- Detta gör att formen kommer submit till updateTweetId function -->
+    <form method="POST" action="/tweets/<%= tweet._id %>">
+        <input type="hidden" name="_method" value="PUT">
+    
+        <div class="input-field">
+            <label for="userName">Användar Namn</label>
+            <input type="text" name="username" id="username" value="<%= tweet.username %>">
+      
+            <label for="textContent">Tweet Innehåll</label>
+            <textarea id="textContent" name="textContent"><%= tweet.textContent %></textarea>
+        </div>
+      
+        <div class="row">
+            <div class="input-field">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="public" <% if (tweet.status === 'public') { %>selected<% } %>>Public</option>
+                    <option value="private" <% if (tweet.status === 'private') { %>selected<% } %>>Private</option>
+                </select>
+            </div>
+        </div>
+      
+        <div class="row">
+            <label for="action">Action</label>
+            <input type="submit" value="Save" name="action" class="btn">
+            <input type="submit" value="Delete" name="action" class="btn">
+        </div>
     </form>
+   
 
     <footer>
       <%- include('./partials/footer.ejs'); %>
@@ -39,68 +64,3 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" media="screen" />
-    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-dark.css" media="screen and (prefers-color-scheme: dark)" />
-    <title>Make Tweet</title>
-</head>
-
-<body>
-
-    <hr>
-    <!-- include header -->
-    <%- include("./partials/header.ejs") %>
-
-    <h1>Make Tweet!</h1>
-
-    <form action="/user/createTweet" method="POST">
-
-        <div class="input-field">
-            <label for="status">Användar Namn</label>
-            <input type="text" name="username" id="text">
-
-            <label for="status">Tweet Innehåll</label>
-            <textarea id="body" name="textContent"></textarea>
-        </div>
-
-        <div class="row">
-            <div class="input-field">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="public" selected>Public</option>
-                    <option value="private">Private</option>
-                </select>
-
-            </div>
-        </div>
-        <hr>
-
-        <div class="row">
-            <label for="status">Delete Or Save Tweet!</label>
-            <input type="submit" value="Save" class="btn">
-            <input type="submit" value="Delete" class="btn">
-            <input type="submit" value="Edit" class="btn">
-        </div>
-
- <h1>Edit Tweet</h1>
-<form method="POST" action="/tweets/<%= tweet.id %>">
-  <input type="text" name="text" value="<%= tweet.text %>">
-  <button type="submit">Save Changes</button>
-</form>
-
-    </form>
-
-
-    <footer>
-        <%- include('./partials/footer.ejs'); %>
-      </footer>
-
-</body>
-
-</html>
