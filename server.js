@@ -10,9 +10,17 @@ import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 import { getTweetById , updateTweetById} from './routes/route-edit.js';
 
+import bodyParser from 'body-parser';
+
+
+
 // express app environment
 // ========================================
 const app = express();
+
+// Body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // express template engine
 // ========================================
