@@ -45,6 +45,9 @@
     </form>
 
     <h1>Edit Tweet</h1>
+    <a href="/tweets/<%= tweet._id %>/edit">Redigera</a>
+
+
     <!-- Detta gör att formen kommer submit till updateTweetId function -->
     <form method="POST" action="/tweets/<%= tweet._id %>">
         <input type="hidden" name="_method" value="PUT">
