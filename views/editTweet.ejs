@@ -20,9 +20,10 @@
   <body>
 
     <h1>Edit Tweet</h1>
-    <!-- Detta gör att formen kommer submit till updateTweetId function -->
+    <a href="/tweets/{ tweet._id }/edit">Redigera</a>
+    <!-- Användaren skickar formuläret och då kommer servern att hantera en PUT begäran till adressen. -->
     <form method="POST" action="/tweets/<%= tweet._id %>">
-        <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="_method" value="PUT">
     
         <div class="input-field">
             <label for="userName">Användar Namn</label>
@@ -31,7 +32,7 @@
             <label for="textContent">Tweet Innehåll</label>
             <textarea id="textContent" name="textContent"><%= tweet.textContent %></textarea>
         </div>
-      
+
         <div class="row">
             <div class="input-field">
                 <label for="status">Status</label>
@@ -46,6 +47,7 @@
             <label for="action">Action</label>
             <input type="submit" value="Save" name="action" class="btn">
             <input type="submit" value="Delete" name="action" class="btn">
+        
         </div>
     </form>
    
