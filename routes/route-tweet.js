@@ -44,6 +44,6 @@ router.post('/tweets/:id', async (req, res) => {
 
   router.put('/tweets/:id', updateTweetById);
 
-  router.post('/tweets/:id/edit', updateTweetById);
+  // router.post('/tweets/:id/edit', updateTweetById);
 
 export default router;
