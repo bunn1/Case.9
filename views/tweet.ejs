@@ -22,18 +22,40 @@
             <button data-id="<%= tweet._id %>">Radera</button>
             <button edit-id="<%= tweet._id %>">Edit</button>
 
-         
             <hr />
         </section>
         <% }) %>
         <% } %>
     </div>
 
+
+
+<!-- 
+    <% data.forEach(tweet => { %>
+        <section id="tweet-<%=tweet._id %>">
+          <div>Användarnamn: <%= tweet.userName %></div>
+          <div>Tweet: <%= tweet.createdAt %></div>
+          <p data-text><%= tweet.textContent %></p>
+          <div>Status: <%= tweet.status %></div>
+          <button data-id="<%= tweet._id %>">Radera</button>
+          <button edit-id="<%= tweet._id %>">Edit</button>
+          <hr />
+        </section>
+      
+        <% console.log(tweet.status); %>
+        
+      <% }) %> -->
+
+
+
+
+
     <hr>
 
     
 
     <script>
+        
 
         const tweets = document.getElementById("tweets");
 
@@ -89,7 +111,7 @@
 
                                 if (event.target.nodeName == "BUTTON") {
 
-                                    // console.log(event.target.getAttribute("data-id"));
+                                    // console.log(event.target.getAttribute§("data-id"));
 
                                     const id = event.target.getAttribute("edit-id");
 
