@@ -32,13 +32,13 @@ router.get('/tweets/:id/edit', async (req, res) => {
 
 
 // Routen tar hand om formulärdata och skickar den till updateTweetById funktionen för att uppdatera tweeten i databasen.
-router.post('/tweets/:id', async (req, res) => {
+router.post('/user/createTweet', async (req, res) => {
     try {
       await updateTweetById(req.params.id, req.body.text);
       res.redirect('/tweets');
     } catch (err) {
       console.error('Error updating tweet', err);
-      res.redirect('/tweets');
+      res.redirect('/user/createTweet');
     }
   });
 
