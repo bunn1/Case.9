@@ -53,10 +53,10 @@ app.get('*', (req, res, next) => {
     next();
 });
 
-app.get('/tweets/:id/edit', getTweetById);
+app.get('/user/createTweet/:id/edit', getTweetById);
 
 // update a tweet by id
-app.post('/tweets/:id/edit', updateTweetById);
+app.post('/user/createTweet/:id/edit', updateTweetById);
 // app.post('tweets/:id/edit', updateTweetById);
 
 // use local routes ...
