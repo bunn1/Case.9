@@ -14,11 +14,11 @@
     <div id="tweets">
         <% if (data) { %>
         <% data.forEach(tweet => { %>
-        <section id="tweet-<%=tweet._id %>">
-            <div>Användarnamn: <%= tweet.userName %></div>
+        <section id="<%=tweet._id %>">
+            <div>Användarnamn: <p class="anvandarNamn"><%=tweet.userName %></p> </div>
             <div>Tweet: <%= tweet.createdAt %></div>
-            <p data-text><%= tweet.textContent %></p>
-            <div>Status: <%= tweet.status %></div>
+            <p data-text><p class="content"><%=tweet.textContent %></p></p>
+            <div>Status: <p class="status"><%=tweet.status %></p></div>
             <button  data-id="<%= tweet._id %>">Radera</button>
             <button edit-id="<%= tweet._id %>">Edit</button>
 
@@ -75,7 +75,8 @@
                 const newTweet = editFormEl.elements.tweet.value;
                 const newStatus = editFormEl.elements.status.value;
                 // tip: use fetch
-                fetch(`/tweet/${id}`, {
+                console.log(id)
+                fetch(`/tweets/${id}/edit`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json", // let server know that body is a string of json
@@ -104,12 +105,21 @@
             event.preventDefault();
             console.log(event.target);
             if (event.target.nodeName == "BUTTON" && event.target.getAttribute("edit-id")) {
+
+                console.log("Halllå")
                 const id = event.target.getAttribute("edit-id");
-                const tweetElement = event.target.closest("#tweet");
-                const oldUserName = tweetElement.querySelector("div").textContent.slice(2);
-                const oldTextContent = tweetElement.querySelector("p").textContent;
-                const oldStatus = tweetElement.querySelector("div:last-child").textContent;
-                console.log("thena")
+                const tweetElement = document.getElementById(id);
+                console.log(tweetElement)
+                const oldUserName = tweetElement.getElementsByClassName("anvandarNamn")[0].textContent;
+                console.log(oldUserName)
+                // const oldUserName = document.querySelector(`#${id} .anvandarNamn`).textContent.slice(2);
+
+                const oldTextContent = tweetElement.getElementsByClassName("content")[0].textContent;
+                const oldStatus = tweetElement.getElementsByClassName("status")[0].textContent;
+
+                // const oldTextContent = tweetElement.querySelector("p").textContent;
+                // const oldStatus = tweetElement.querySelector("div:last-child").textContent;
+            
                 handleEdit(id, oldUserName, oldTextContent, oldStatus);
             } else if (event.target.nodeName == "BUTTON" && event.target.getAttribute("data-id")) {
                 const id = event.target.getAttribute("data-id");
@@ -127,7 +137,7 @@
                     .then((data) => {
                         console.log("data", data);
                         if (data.result == "success") {
-                            document.getElementById("tweet-" + id).remove();
+                            document.getElementById(id).remove();
                         }
                     });
             }
