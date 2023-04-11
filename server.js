@@ -4,11 +4,14 @@ import express from "express";
 import session from "express-session";
 import { ObjectId } from 'mongodb';
 
-// local modules
+
+// local modules§
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
-import { getTweetById , updateTweetById} from './routes/route-edit.js';
+import {tweetRouter} from './routes/route-edit.js'
+
+import { getTweetById , updateTweetById} from './routes/route-tweet.js';
 
 import bodyParser from 'body-parser';
 
@@ -42,6 +45,9 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// Hämtar ut alla funktioner från routeEdit
+
+app.use('/tweets', tweetRouter);
 
 // routes
 // ========================================
@@ -69,6 +75,7 @@ app.use('/user', routeUser);
 app.get('/makeTweet', (req, res) => {
     res.render("makeTweet", { tweet: {} });
 });
+
 
 
 // app.get('/about', getAllTweets)
