@@ -48,6 +48,18 @@ router.put('/deleteTweet', (req, res) => {
 
 });
 
+router.put("/tweets/:id/edit", async (req, res) => {
+    try {
+      // Använd req.body.name, req.body.tweet och req.body.status
+      // istället för req.body.text
+      await updateTweetById(req.params.id, req.body.tweet, req.body.name, req.body.status);
+      res.redirect("/user/createTweet");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server error - could not update tweet");
+    }
+  });
+
 router.post("/register", (req, res) => {
 
     // prepare obj reply
