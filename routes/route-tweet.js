@@ -1,8 +1,8 @@
-import express from 'express';
+import {Router} from 'express';
 import { ObjectId } from 'mongodb';
 import { getTweetById, updateTweetById } from '../controllers/controller-tweet.js';
 
-const router = express.Router();
+const router = Router();
 
 // Hitta tweet med id från databasen. Därefter renderas makeTweet sidan och tweeten skickas som ett objekt till sidan
 router.get('/tweets/:id/makeTweet', async (req, res) => {
@@ -42,7 +42,20 @@ router.post('/user/createTweet', async (req, res) => {
     }
   });
 
-  router.put('/tweets/:id', updateTweetById);
+
+  router.post('/tweet/:id', async (req, res) => {
+    console.log(req.body)
+    try {
+      await updateTweetById(req.params.id, req.body.text);
+      res.redirect('/tweets');
+    } catch (err) {
+      console.error('Error updating tweet', err);
+      res.redirect('/user/createTweet');
+    }
+  });
+
+
+  // router.post('/tweets/:id', updateTweetById);
 
   // router.post('/tweets/:id/edit', updateTweetById);
 

@@ -74,22 +74,22 @@ async function deleteTweet(id) {
 }
 
 // Uppdatera befintlig tweet med hjälp av Mongoose. tweetId och tweetText extraheras från req.body. findOneAndUpdate söker efter tweeten med matchande tweetId och uppdaterar dess text och returnerar  den nya tweeten
-const updateTweet = async (req, res) => {
-    const { tweetId, tweetText  } = req.body;
+// const updateTweet = async (req, res) => {
+//     const { tweetId, tweetText  } = req.body;
 
-    try {
-        const updatedTweet = await Tweet.findOneAndUpdate(
-            { _id: tweetId },
-            { $set: { text: tweetText } },
-            { new: true }
-        );
+//     try {
+//         const updatedTweet = await Tweet.findOneAndUpdate(
+//             { _id: tweetId },
+//             { $set: { text: tweetText } },
+//             { new: true }
+//         );
 
-        res.redirect('/');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Serverfel - försök igen senare!')
-    }
-}
+//         res.redirect('/');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Serverfel - försök igen senare!')
+//     }
+// }
 
 // Uppdater tweet i tweets collection med specifikt id genom att använda $set operator. Den uppdaterar tweets username, textcontent och status fältet.
 // Sen omdirigeras användaren till den uppdaterade tweets details sidan.
