@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweets</title>
+</head>
+
+<body>
+
+
+    <div id="tweets">
+        <% if (data) { %>
+        <% data.forEach(tweet => { %>
+        <section id="<%=tweet._id %>">
+            <div class="anvandarNamn">Användarnamn: <%= tweet.userName %></div>
+            <div>Tweet: <%= tweet.createdAt %></div>
+            <p data-text><%= tweet.textContent %></p>
+            <div>Status: <%= tweet.status %></div>
+            <button  data-id="<%= tweet._id %>">Radera</button>
+             <button edit-id="<%= tweet._id %>">Edit</button> 
+
+            <hr />
+        </section>
+        <% }) %>
+        <% } %>
+    </div>
+
+    <form id="editForm" hidden>
+        <label for="name">Användarnamn:</label>
+        <input type="text" id="userName" name="userName"><br>
+
+        <label for="tweet">Tweet:</label>
+        <textarea id="tweet" name="tweet"></textarea><br>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+
+    <hr>
+
+
+    <script>
+        function handleEdit(id, oldUserName, oldTextContent, oldStatus) {
+            // access each input and repopulate them
+            const editFormEl = document.getElementById("editForm");
+            // console.log("handleEdit - Form Elements", editFormEl.elements);
+
+            // check if editFormEl.elements is not null
+            if (editFormEl.elements) {
+                // name
+                editFormEl.elements.name.value = oldUserName;
+                // quote
+                editFormEl.elements.tweet.value = oldTextContent;
+                // visibilty
+                editFormEl.elements.status.value = oldStatus;
+            }
+            // Show edit form
+            document.getElementById("editForm").hidden = false;
+            // Setup submit handler for edit form
+            editFormEl.onsubmit = (evt) => {
+                evt.preventDefault();
+
+            
+                const newName = editFormEl.elements.userName.value;
+                const newTweet = editFormEl.elements.tweet.value;
+                const newStatus = editFormEl.elements.status.value;
+                // tip: use fetch
+                fetch(`/tweet/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json", // let server know that body is a string of json
+                        },
+                        body: JSON.stringify({
+                            name: newName,
+                            tweet: newTweet,
+                            status: newStatus
+                        }),
+                    })
+                    .then((resp) => {
+                        console.log(resp);
+                        if (resp.redirected) {
+                            window.location.href = resp.url;
+                        }
+                    })
+                    .catch((err) => console.error(err));
+            };
+
+        }
+
+
+        const tweets = document.getElementById("tweets");
+
+        tweets.addEventListener("click", (event) => {
+            event.preventDefault();
+            console.log(event.target);
+            if (event.target.nodeName == "BUTTON" && event.target.getAttribute("edit-id")) {
+              console.log("abc")
+                const id = event.target.getAttribute("edit-id");
+                const tweetElement = event.target.closest("#tweet");
+                const oldUserName = tweetElement.querySelector(`#${id} anvandarNamn`).textContent.slice(2);
+                const oldTextContent = tweetElement.querySelector("p").textContent;
+                const oldStatus = tweetElement.querySelector("div:last-child").textContent;
+                
+                console.log("thena")
+                handleEdit(id, oldUserName, oldTextContent, oldStatus);
+            } else if (event.target.nodeName == "BUTTON" && event.target.getAttribute("data-id")) {
+              console.log("def")
+                const id = event.target.getAttribute("data-id");
+                const options = {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    })
+                };
+                fetch("/user/deleteTweet", options)
+                    .then(response => response.json())
+                    .then((data) => {
+                        console.log("data", data);
+                        if (data.result == "success") {
+                            document.getElementById("tweet-" + id).remove();
+                        }
+                    });
+            }
+        });
+
+        const editTweet = document.getElementById("tweets");
+
+        editTweet.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            console.log(event.target);
+
+            if (event.target.nodeName == "BUTTON") {
+
+                // console.log(event.target.getAttribute§("data-id"));
+
+                const id = event.target.getAttribute("edit-id");
+
+                console.log(id)
+                const options = {
+
+                    method: 'PUT',
+
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify({
+                        id: id
+                    })
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
