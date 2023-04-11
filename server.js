@@ -11,7 +11,7 @@ import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
 import {tweetRouter} from './routes/route-edit.js'
 
-import { getTweetById , updateTweetById} from './routes/route-tweet.js';
+import { getTweetById , updateTweetById} from './controllers/controller-tweet.js';
 
 import bodyParser from 'body-parser';
 
