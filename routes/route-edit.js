@@ -41,16 +41,18 @@ tweetRouter.get('/tweets/:id/edit', async (req, res) => {
 
 // Tar hand om formulärdata och skickar den till updateTweetById funktionen för att uppdatera tweeten i databasen. ID hämtas från req.params.id
 // Sen skickas användaren tillbaka till huvudsidan.
-tweetRouter.post('/tweets/:id/edit', async (req, res) => {
-    try {
-      await updateTweetById(req.params.id, req.body.text);
-      res.redirect('/user/createTweet');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Server error - could not update tweet');
-    }
-  });
-
+tweetRouter.put("/tweets/:id/edit", async (req, res) => {
+  console.log("PUT request received for /tweets/:id/edit");
+  try {
+    // Använd req.body.name, req.body.tweet och req.body.status
+    // istället för req.body.text
+    await updateTweetById(req.params.id, req.body.tweet, req.body.name, req.body.status);
+    res.redirect("/user/createTweet");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error - could not update tweet");
+  }
+});
 // PUT-rutt tar hand om formulärdata och skickar den till updateTweetById funktionen för att uppdatera tweeten i databasen.
 tweetRouter.put('/tweets/:id/edit', async (req, res) => {
   try {
