@@ -12,7 +12,7 @@
 <body>
 
     <!-- include header -->
-    <%- include("./partials/header.ejs") %>
+   
 
         <h1>Logga in</h1>
 
@@ -51,8 +51,11 @@
                     .then((data) => {
                         console.log("data", data);
                         if (data.result === "success") {
+                            setTimeout(function(){
+                                window.location.href = "http://localhost:3000/makeTweet";
+                            }, 2000);
                             // Dirigeras till makeTweet sidan!
-                            window.location.href = "http://localhost:3000/makeTweet";
+                            document.querySelector("span").innerHTML = "Logged In Yes!"
                         } else
                         document.querySelector("span").innerHTML = data.message;
                     });
