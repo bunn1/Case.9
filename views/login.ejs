@@ -50,6 +50,10 @@
                     .then(response => response.json())
                     .then((data) => {
                         console.log("data", data);
+                        if (data.result === "success") {
+                            // Dirigeras till makeTweet sidan!
+                            window.location.href = "http://localhost:3000/makeTweet";
+                        } else
                         document.querySelector("span").innerHTML = data.message;
                     });
             });
