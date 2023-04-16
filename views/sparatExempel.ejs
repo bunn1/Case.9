@@ -10,6 +10,22 @@
 
 <body>
 
+    <!-- 
+        <div class="row">
+            <div class="input-field">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="public" <% if (tweet.status === 'public') { %>selected<% } %>>Public</option>
+                    <% if (password.value) { %>
+                        <option value="private" <% if (tweet.status === 'private') { %>selected<% } %>>Private</option>
+                    <% } %>
+                </select>
+            </div>
+        </div> -->
+
+
+
+
 
     <div id="tweets">
         <% if (data) { %>
