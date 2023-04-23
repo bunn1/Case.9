@@ -3,6 +3,7 @@
 import express from "express";
 import session from "express-session";
 import { ObjectId } from 'mongodb';
+import flash from "connect-flash";
 
 
 // local modules§
@@ -14,6 +15,8 @@ import {tweetRouter} from './routes/route-edit.js'
 import { getTweetById , updateTweetById} from './controllers/controller-tweet.js';
 
 import bodyParser from 'body-parser';
+
+// Lägg till flash-meddelande middleware
 
 
 
@@ -45,6 +48,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+
 // Hämtar ut alla funktioner från routeEdit
 
 app.use('/tweets', tweetRouter);
@@ -74,6 +78,41 @@ app.use('/user', routeUser);
 // Renderar sidan makeTweet
 app.get('/makeTweet', (req, res) => {
     res.render("makeTweet", { tweet: {} });
+});
+
+// Middleware flash
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
+
+// Rendera sidan login
+app.get('/user', (req, res) => {
+    res.render("login", { message: req.flash('message') });
+});
+
+// Hantera inloggning
+// app.post('/user/login', (req, res) => {
+//     const { username, password } = req.body;
+
+//     // Checka användarnamn och lösenord här
+
+//     if (authenticated) {
+//         req.flash('success_msg', 'Successfully logged in');
+//         // console.log(req.flash('message'));
+//         res.redirect('/makeTweet');
+//     } else {
+//         req.flash('error', 'Logged in failed');
+//         res.redirect('/user');
+//     }
+// });
+
+// Route-handling för att visa login-vyn
+app.get('/user', (req, res) => {
+    const success_msg = req.flash('success_message');
+    res.render('login', { success_msg }); // skickar med meddelandet till vyn
 });
 
 
