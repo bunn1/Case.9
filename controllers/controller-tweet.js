@@ -30,18 +30,23 @@ async function createTweet(req, res) {
 
         // Efter att den nya tweeten har satts in i databasen fångas alla tweets från newTweets genom find metoden och omvandlar resultat till en array. Därefter renderas en tweet med ny data eller error.
         let newTweets = await db.collection("newTweets").find({}).toArray()
-        // console.log(newTweets);
+        console.log(newTweets);
         res.render("tweet", {
             success: true,
             message: "Create tweet success",
             data: newTweets
         })
+        // res.redirect("/user/createTweet")
     } catch (error) {
         res.render("index", {
             success: false,
             message: "Create tweet failed"
         })
     }
+}
+
+async function getTweet(){
+    return await db.collection("newTweets").find({}).toArray()
 }
 
 // Delete en tweet
@@ -115,4 +120,4 @@ const updateTweetById = async (req, res) => {
     }
   };
 
-export {createTweet, deleteTweet, getTweetById , updateTweetById}
+export {createTweet, deleteTweet, getTweetById , updateTweetById, getTweet}
