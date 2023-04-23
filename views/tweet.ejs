@@ -9,8 +9,13 @@
     <title>Tweets</title>
 </head>
 
-<body>
 
+<body>
+    <%- include("./partials/header.ejs") %>
+    
+    <% if (!!create_msg) { %>
+        <div class="alert alert-success"><%= create_msg %></div>
+    <% } %>
 
     <div id="tweets">
         <% if (data) { %>
@@ -29,7 +34,8 @@
         <% } %>
     </div>
 
-    <form id="editForm" hidden>
+    <form id="editForm" method="POST" action="editTweet" hidden>
+        <input type="hidden" name="id" id="editFormId">
         <label for="name">Användarnamn:</label>
         <input type="text" id="name" name="name"><br>
 
@@ -59,6 +65,7 @@
             if (editFormEl.elements) {
                 // name
                 editFormEl.elements.name.value = oldUserName;
+                
                 // quote
                 editFormEl.elements.tweet.value = oldTextContent;
                 // visibilty
@@ -67,35 +74,35 @@
             // Show edit form
             document.getElementById("editForm").hidden = false;
             // Setup submit handler for edit form
-            editFormEl.onsubmit = (evt) => {
-                evt.preventDefault();
-                // DONE send a put request to server
-                // with new values for name and quote
-                // with current selected id
-                const newName = editFormEl.elements.name.value;
-                const newTweet = editFormEl.elements.tweet.value;
-                const newStatus = editFormEl.elements.status.value;
-                // tip: use fetch
-                console.log(id)
-                fetch(`/tweets/${id}/edit`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json", // let server know that body is a string of json
-                        },
-                        body: JSON.stringify({
-                            name: newName,
-                            tweet: newTweet,
-                            status: newStatus
-                        }),
-                    })
-                    .then((resp) => {
-                        console.log(resp);
-                        if (resp.redirected) {
-                            window.location.href = resp.url;
-                        }
-                    })
-                    .catch((err) => console.error(err));
-            };
+        //     editFormEl.onsubmit = (evt) => {
+        //         evt.preventDefault();
+        //         // DONE send a put request to server
+        //         // with new values for name and quote
+        //         // with current selected id
+        //         const newName = editFormEl.elements.name.value;
+        //         const newTweet = editFormEl.elements.tweet.value;
+        //         const newStatus = editFormEl.elements.status.value;
+        //         // tip: use fetch
+        //         console.log(id)
+        //         fetch(`/tweets/${id}/edit`, {
+        //                 method: "PUT",
+        //                 headers: {
+        //                     "Content-Type": "application/json", // let server know that body is a string of json
+        //                 },
+        //                 body: JSON.stringify({
+        //                     name: newName,
+        //                     tweet: newTweet,
+        //                     status: newStatus
+        //                 }),
+        //             })
+        //             .then((resp) => {
+        //                 console.log(resp);
+        //                 if (resp.redirected) {
+        //                     window.location.href = resp.url;
+        //                 }
+        //             })
+        //             .catch((err) => console.error(err));
+        //     };
 
         }
 
@@ -120,7 +127,7 @@
 
                 // const oldTextContent = tweetElement.querySelector("p").textContent;
                 // const oldStatus = tweetElement.querySelector("div:last-child").textContent;
-            
+                document.getElementById("editFormId").value = id;
                 handleEdit(id, oldUserName, oldTextContent, oldStatus);
             } else if (event.target.nodeName == "BUTTON" && event.target.getAttribute("data-id")) {
                 const id = event.target.getAttribute("data-id");
@@ -144,35 +151,35 @@
             }
         });
 
-        const editTweet = document.getElementById("tweets");
+        // const editTweet = document.getElementById("tweets");
 
-        editTweet.addEventListener("click", (event) => {
+        // editTweet.addEventListener("click", (event) => {
 
-            event.preventDefault();
+        //     event.preventDefault();
 
-            console.log(event.target);
+        //     console.log(event.target);
 
-            if (event.target.nodeName == "BUTTON") {
+        //     if (event.target.nodeName == "BUTTON") {
 
-                // console.log(event.target.getAttribute§("data-id"));
+        //         // console.log(event.target.getAttribute§("data-id"));
 
-                const id = event.target.getAttribute("edit-id");
+        //         const id = event.target.getAttribute("edit-id");
 
-                console.log(id)
-                const options = {
+        //         console.log(id)
+        //         const options = {
 
-                    method: 'PUT',
+        //             method: 'PUT',
 
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
 
-                    body: JSON.stringify({
-                        id: id
-                    })
-                }
-            }
-        })
+        //             body: JSON.stringify({
+        //                 id: id
+        //             })
+        //         }
+        //     }
+        // })
     </script>
 
 </body>
