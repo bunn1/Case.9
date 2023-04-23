@@ -9,7 +9,7 @@
 </head>
 <body>
     <hr>
-    <!-- include header -->
+ 
     <%- include("./partials/header.ejs") %>
 
     <h1>Make Tweet!</h1>
@@ -24,17 +24,6 @@
             <textarea id="textContent" name="textContent"></textarea>
         </div>
 
-        <!-- <div class="row">
-            <div class="input-field">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="public" selected>Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </div>
-        </div> -->
-
-
           <div class="row">
             <div class="input-field">
                 <label for="status">Status</label>
@@ -45,7 +34,6 @@
             </div>
         </div> 
 
-
         <div class="row">
             <label for="action">Action</label>
             <input type="submit" value="Save" name="action" class="btn">
@@ -53,44 +41,8 @@
             <input type="submit" value="Edit" name="action" class="btn">
             <a href="/user/logout" class="btn">Log out</a>
         </div>
-
-        
-
     </form>
-
-    <h1>Edit Tweet</h1>
-    <!-- <a href="/tweets/<%= tweet._id %>/edit">Redigera</a> -->
-
-
-    <!-- Detta gör att formen kommer till updateTweetId function när du submit tar-->
-    <form method="POST" action="/tweets/<%= tweet._id %>">
-        <input type="hidden" name="_method" value="PUT">
-    
-        <div class="input-field">
-            <label for="userName">Användar Namn</label>
-            <input type="text" name="username" id="username" value="<%= tweet.username %>">
-      
-            <label for="textContent">Tweet Innehåll</label>
-            <textarea id="textContent" name="textContent"><%= tweet.textContent %></textarea>
-        </div>
-      
-        <div class="row">
-            <div class="input-field">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="public" <% if (tweet.status === 'public') { %>selected<% } %>>Public</option>
-                    <option value="private" <% if (tweet.status === 'private') { %>selected<% } %>>Private</option>
-                </select>
-            </div>
-        </div>
-      
-        <div class="row">
-            <label for="action">Action</label>
-            <input type="submit" value="Save" name="action" class="btn">
-            <input type="submit" value="Delete" name="action" class="btn">
-        </div>
-    </form>
-   
+  
     <footer>
         <% include('./partials/footer.ejs'); %>
     </footer>
