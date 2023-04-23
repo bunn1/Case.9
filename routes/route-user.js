@@ -5,7 +5,7 @@ const router = express.Router();
 
 import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
 
- import {  getTweetById, createTweet, deleteTweet,  updateTweetById} from "../controllers/controller-tweet.js";
+ import {  getTweetById, createTweet, deleteTweet,  updateTweetById, getAllTweet, getPublicTweet} from "../controllers/controller-tweet.js";
 
 
 router.get("/", (req, res) => {
@@ -34,12 +34,20 @@ router.get("/logout", (req, res) => {
 
 router.get("/makeTweet", getTweetById)
 
-router.get("/createTweet", (req, res) => {
-
-    res.render("/tweet", {
+router.get("/seeTweet", async (req, res) => {
+    const create_msg = req.flash('create_msg');
+    let data = await getPublicTweet()
+  const user =  req.session.username
+  if (!!user ) {
+     data = await getAllTweet(user)
+  } 
+   
+  
+    res.render("../views/tweet", {
         success: true,
         message: "Create tweet success",
-        data: getTweet()
+        data:data, 
+        create_msg: create_msg
     })
    
 });
@@ -100,6 +108,10 @@ console.log(req.body)
             res.json(reply);
         });
 });
+
+router.post("/editTweet", (req, res) => {
+    res.status(200).send(req.body);
+})
 
 router.post("/login", (req, res) => {
 
