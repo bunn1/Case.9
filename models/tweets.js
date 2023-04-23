@@ -5,8 +5,9 @@ import mongoose from 'mongoose';
 const tweetSchema = new mongoose.Schema({
     status: {
         type: 'String',
+        enum: ['public', 'private'],
         default: 'public',
-        enum: ['public', 'private']
+       
     },
     userName: {
         type: 'String',
