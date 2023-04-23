@@ -21,7 +21,14 @@ async function createTweet(req, res) {
         } = req.body;
         console.log(req.body);
 
+        const author = req.session.username
+        console.log(author)
+        if (!author ) {
+            throw new Error("Not Logged In!")
+        }
+
         const newTweet = await db.collection('newTweets').insertOne({
+            author: req.session.username,
             createdAt: new Date().toLocaleString("sv-SE"),
             userName: username,
             textContent: textContent,
@@ -30,24 +37,43 @@ async function createTweet(req, res) {
 
         // Efter att den nya tweeten har satts in i databasen fångas alla tweets från newTweets genom find metoden och omvandlar resultat till en array. Därefter renderas en tweet med ny data eller error.
         let newTweets = await db.collection("newTweets").find({}).toArray()
-        console.log(newTweets);
-        res.render("tweet", {
-            success: true,
-            message: "Create tweet success",
-            data: newTweets
-        })
-        // res.redirect("/user/createTweet")
+
+
+        // console.log(newTweets);
+        // res.render("tweet", {
+        //     success: true,
+        //     message: "Create tweet success",
+        //     data: newTweets
+        // })
+
+        req.flash('create_msg', 'Good Created Tweet!');
+        res.redirect("/user/seeTweet")
     } catch (error) {
-        res.render("index", {
-            success: false,
-            message: "Create tweet failed"
-        })
+        console.log(error)
+        // res.render("index", {
+        //     success: false,
+        //     message: "Create tweet failed"
+        // })
     }
 }
 
-async function getTweet(){
-    return await db.collection("newTweets").find({}).toArray()
+async function getAllTweet(author){
+    return await db.collection("newTweets").find({
+        $or: [
+          { status: "public" },
+          { author: author }
+        ]
+      }).toArray();
+      
 }
+
+async function getPublicTweet(){
+    
+
+    return await db.collection("newTweets").find({ status: "public" }).toArray();
+
+}
+
 
 // Delete en tweet
 async function deleteTweet(id) {
@@ -120,4 +146,4 @@ const updateTweetById = async (req, res) => {
     }
   };
 
-export {createTweet, deleteTweet, getTweetById , updateTweetById, getTweet}
+export {createTweet, deleteTweet, getTweetById , updateTweetById, getAllTweet, getPublicTweet}
