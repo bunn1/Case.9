@@ -1,6 +1,6 @@
 import express from "express";
 import { SITE_NAME } from "../configs.js";
-
+import flash from "connect-flash";
 const router = express.Router();
 
 import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
@@ -16,8 +16,12 @@ router.get("/register", (req, res) => {
     res.render("register", { site: SITE_NAME, username: req.session.username });
 });
 
+router.use(flash());
+
 router.get("/login", (req, res) => {
-    res.render("login", { site: SITE_NAME, username: req.session.username });
+    const success_msg = req.flash('success_msg');
+    const error_msg = req.flash('error_msg');
+    res.render("login", { site: SITE_NAME, username: req.session.username, success_msg: success_msg, error_msg: error_msg });
 });
 
 router.get("/logout", (req, res) => {
@@ -29,7 +33,16 @@ router.get("/logout", (req, res) => {
 
 
 router.get("/makeTweet", getTweetById)
-// router.post('/createtweet', createTweet) ;
+
+router.get("/createTweet", (req, res) => {
+
+    res.render("/tweet", {
+        success: true,
+        message: "Create tweet success",
+        data: getTweet()
+    })
+   
+});
 
 router.post('/createTweet', createTweet)
 
@@ -97,19 +110,28 @@ router.post("/login", (req, res) => {
         if (data.error !== undefined) {
             reply.result = "fail";
             reply.message = data.error;
+            req.flash('error_msg', 'Error not logged in!');
+          
         } else {
             reply.result = "success";
-            reply.message = "Du har loggat in - <a href='/'>startsida</a>";
-            
+            reply.message = "Du har loggat in! - <a href='/'>startsida</a>";
+          
             // session
             req.session.username = data.user.username;
+            req.flash('success_msg', 'Successfully logged in');
+        
         }
 
     }).catch(error => {
-        console.log("error loginUser method", error);
+        req.flash('error_msg', 'Error not logged in!');
+        // console.log("error loginUser method", error);
     }).finally(() => {
-        res.json(reply);
-    });
+        if (reply.result === "success") {
+          res.redirect("/makeTweet");
+        } else {
+          res.redirect("/user/login");
+        }
+      });
 });
 
 export default router;
