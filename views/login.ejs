@@ -12,54 +12,66 @@
 <body>
 
     <!-- include header -->
-   
+    <%- include("./partials/header.ejs") %>
+
+    <% if (!!success_msg) { %>
+        <div class="alert alert-success"><%= success_msg %></div>
+    <% } %>
+    
+    <% if (!!error_msg) { %>
+        <div class="alert alert-danger"><%= error_msg %></div>
+    <% } %>
+
 
         <h1>Logga in</h1>
 
-        <form action="/user/login" method="post">
+     
 
-            <input type="text" name="username" id="username" placeholder="Användarnamn" required>
-            <input type="password" name="password" id="password" required>
-            <input type="submit" value="Logga in">
-            <!-- checkbox - confirm -->
-
-            <span></span>
-
+        <form action="/user/login" method="POST">
+            <div class="input-field">
+                <label for="username">Användar Namn</label>
+                <input type="text" name="username" id="username">
+    
+                <label for="password">Lösenord</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+    
+            <button type="submit">Logga In</button>
         </form>
 
 
         <script>
 
-            const form = document.querySelector("form");
-            form.addEventListener("submit", (event) => {
-                event.preventDefault();
+            // const form = document.querySelector("form");
+            // form.addEventListener("submit", (event) => {
+            //     event.preventDefault();
 
-                // skicka formulär data med XMLHttpRequest ^^ eller fetch
-                const username = document.querySelector("#username");
-                const password = document.querySelector("#password");
-                const formContent = {username: username.value, password: password.value};
+            //     // skicka formulär data med XMLHttpRequest ^^ eller fetch
+            //     const username = document.querySelector("#username");
+            //     const password = document.querySelector("#password");
+            //     const formContent = {username: username.value, password: password.value};
 
-                // options - set method and content type
-                const options = {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(formContent)
-                }
+            //     // options - set method and content type
+            //     const options = {
+            //         method: 'POST',
+            //         headers: {'Content-Type': 'application/json'},
+            //         body: JSON.stringify(formContent)
+            //     }
 
-                fetch("/user/login", options)
-                    .then(response => response.json())
-                    .then((data) => {
-                        console.log("data", data);
-                        if (data.result === "success") {
-                            setTimeout(function(){
-                                window.location.href = "http://localhost:3000/makeTweet";
-                            }, 2000);
-                            // Dirigeras till makeTweet sidan!
-                            document.querySelector("span").innerHTML = "Logged In Yes!"
-                        } else
-                        document.querySelector("span").innerHTML = data.message;
-                    });
-            });
+            //     fetch("/user/login", options)
+            //         .then(response => response.json())
+            //         .then((data) => {
+            //             console.log("data", data);
+            //             if (data.result === "success") {
+            //                 setTimeout(function(){
+            //                     window.location.href = "http://localhost:3000/makeTweet";
+            //                 }, 2000);
+            //                 // Dirigeras till makeTweet sidan!
+            //                 document.querySelector("span").innerHTML = "Logged In Yes!"
+            //             } else
+            //             document.querySelector("span").innerHTML = data.message;
+            //         });
+            // });
 
         </script>
 
