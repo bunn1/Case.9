@@ -1,8 +1,20 @@
 <header>
     <!-- use ejs: param object -->
+    
  
     <nav>
         <a href="/">Start</a> | <a href="/user">Users</a> | <a href="/makeTweet">Make Tweet</a>
+
+        <% if (locals.username) { %>
+            <p>
+                <a href="/user/logout">Logga ut</a>
+            </p>     
+        <% } else { %>
+            <p>
+                <a href="/user/login">Logga in</a>
+            </p>
+        <% } %>
+    
     </nav>
 </header>
 <hr>
