@@ -67,6 +67,13 @@ async function getAllTweet(author){
       
 }
 
+async function getAuthor(id){
+  return await db.collection("newTweets").findOne(
+    { _id: ObjectId(id) },
+    { author: 1 }
+  );
+}
+
 async function getPublicTweet(){
     
 
@@ -124,26 +131,25 @@ async function deleteTweet(id) {
 
 // Uppdater tweet i tweets collection med specifikt id genom att använda $set operator. Den uppdaterar tweets username, textcontent och status fältet.
 // Sen omdirigeras användaren till den uppdaterade tweets details sidan.
-const updateTweetById = async (req, res) => {
-    const { id } = req.params;
-    const { username, textContent, status } = req.body;
-  
-    try {
-      const result = await db.collection("tweets").updateOne(
-        { _id: ObjectId(id) },
+const updateTweetById = async (body) => {
+
+    // const { id } = req.params;
+    const { id, name, tweet, status } = body;
+    console.log(typeof id);
+   
+      const result = await db.collection("newTweets").updateOne(
+     
+        { _id: ObjectId (id) },
+        
         {
           $set: {
-            username,
-            textContent,
-            status,
+            userName: name,
+            textContent: tweet,
+            status: status
           },
         }
       );
-      res.redirect(`/user/${result.upsertedId || id}`);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send("Something went wrong.");
-    }
+      console.log(result)
   };
 
-export {createTweet, deleteTweet, getTweetById , updateTweetById, getAllTweet, getPublicTweet}
+export {createTweet, deleteTweet, getTweetById , updateTweetById, getAllTweet, getPublicTweet, getAuthor}
