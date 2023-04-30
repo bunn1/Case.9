@@ -38,22 +38,10 @@ async function createTweet(req, res) {
         // Efter att den nya tweeten har satts in i databasen fångas alla tweets från newTweets genom find metoden och omvandlar resultat till en array. Därefter renderas en tweet med ny data eller error.
         let newTweets = await db.collection("newTweets").find({}).toArray()
 
-
-        // console.log(newTweets);
-        // res.render("tweet", {
-        //     success: true,
-        //     message: "Create tweet success",
-        //     data: newTweets
-        // })
-
         req.flash('create_msg', 'Good Created Tweet!');
         res.redirect("/user/seeTweet")
     } catch (error) {
         console.log(error)
-        // res.render("index", {
-        //     success: false,
-        //     message: "Create tweet failed"
-        // })
     }
 }
 
@@ -80,7 +68,6 @@ async function getPublicTweet(){
     return await db.collection("newTweets").find({ status: "public" }).toArray();
 
 }
-
 
 // Delete en tweet
 async function deleteTweet(id) {
@@ -110,24 +97,6 @@ async function deleteTweet(id) {
         return {success: true, message: "tweet Deleted id: objId:"};
     }
 }
-
-// Uppdatera befintlig tweet med hjälp av Mongoose. tweetId och tweetText extraheras från req.body. findOneAndUpdate söker efter tweeten med matchande tweetId och uppdaterar dess text och returnerar  den nya tweeten
-// const updateTweet = async (req, res) => {
-//     const { tweetId, tweetText  } = req.body;
-
-//     try {
-//         const updatedTweet = await Tweet.findOneAndUpdate(
-//             { _id: tweetId },
-//             { $set: { text: tweetText } },
-//             { new: true }
-//         );
-
-//         res.redirect('/');
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Serverfel - försök igen senare!')
-//     }
-// }
 
 // Uppdater tweet i tweets collection med specifikt id genom att använda $set operator. Den uppdaterar tweets username, textcontent och status fältet.
 // Sen omdirigeras användaren till den uppdaterade tweets details sidan.
