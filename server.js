@@ -10,7 +10,7 @@ import flash from "connect-flash";
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
-import {tweetRouter} from './routes/route-edit.js'
+// import {tweetRouter} from './routes/route-edit.js'
 
 import { getTweetById , updateTweetById} from './controllers/controller-tweet.js';
 
@@ -51,7 +51,7 @@ app.use(express.urlencoded({extended: true}));
 
 // Hämtar ut alla funktioner från routeEdit
 
-app.use('/tweets', tweetRouter);
+// app.use('/tweets', tweetRouter);
 
 // routes
 // ========================================
