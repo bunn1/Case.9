@@ -5,7 +5,7 @@ const router = express.Router();
 
 import { listUsers, addUser, loginUser  } from "../controllers/controller-user.js";
 
- import {  getTweetById, createTweet, deleteTweet,  updateTweetById, getAllTweet, getPublicTweet} from "../controllers/controller-tweet.js";
+ import {  getTweetById, createTweet, deleteTweet,  updateTweetById, getAllTweet, getPublicTweet, getAuthor} from "../controllers/controller-tweet.js";
 
 
 router.get("/", (req, res) => {
@@ -109,8 +109,24 @@ console.log(req.body)
         });
 });
 
-router.post("/editTweet", (req, res) => {
-    res.status(200).send(req.body);
+router.post("/editTweet", async (req, res) => {
+   
+    try {
+        
+    const {author} = await getAuthor(req.body.id)
+console.log(author)
+
+if (author === req.session.username) {
+    await updateTweetById(req.body);
+    res.redirect("/user/seeTweet");
+} else{
+    res.status(403).send("Not Logged In")
+}
+      
+      
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 })
 
 router.post("/login", (req, res) => {
