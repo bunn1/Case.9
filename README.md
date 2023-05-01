@@ -1,12 +1,14 @@
-# WUDNodeAuthentication
-Tutorial - authenticataion sessionbased application using Nodejs
+##Tweet Application##
+A simple application where you have the opportunity to share tweets if you have created a account. You can share public or private tweets. Here you also have the possibility to edit or remove your post!
 
 **How to setup application**
 
 1. Clone git repo branch
-2. Install dependencies `npm i`
-3. Copy file `.env-example` to file named `.env`
-4. Use `.env` file to set application secrets | variables. 
+2. CD into project "cd Case.9"
+3. Install dependencies `npm i`
+4. Copy file `.env-example` to file named `.env`
+5. Use `.env` file to set application secrets | variables. 
+6. 5.1: if you don't have an accout on Mongo DB you need   to  create one and after that create a database so you get the MongoDB Connection string
    
 **How to run application**
 
@@ -15,60 +17,6 @@ Tutorial - authenticataion sessionbased application using Nodejs
 
 ___
 
-## Comments...
-
-### Server event order
-1. dependencies
-2. middleware | sessions, handle posts
-3. routes | endpoints: api response json, render page using template engine
-4. static files
-5. 404 not found - custom page | info
-6. 500 server error
-7. listen on server requests
-
-### Template engine
-
-EJS - Embedded JavaScript templating
-
-Use Visual Studio Code extension EJS Language support 
-
-https://ejs.co/
-
-*folder structure*
-
-- views
-  - partials
-    - header.ejs
-    - footer.js
-    - nav.ejs 
-- index.ejs
-- about.ejs
-- user.ejs
-- ...
-
-
-### Routes
-
-- routes
-  - route-start.js
-  - route-about.js
-
-### MVC - Model View Controller
-
-*folder structure*
-
-- controllers
-  - controller-user.js
-- models
-  <!-- model-user.js ... if class | schema - User.js  -->
-  - User.js
-  - UserSchema.js
-- views
-  - user.ejs
-  - login.ejs
-  - register.ejs
-  - users.ejs
-  - ...
 
 ### MongoDB
 
