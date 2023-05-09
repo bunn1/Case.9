@@ -1,4 +1,4 @@
-Tweet Application
+## Tweet Application
 
 A simple application where you have the opportunity to share tweets if you have created a account. You can share public or private tweets. Here you also have the possibility to edit or remove your post!
 
