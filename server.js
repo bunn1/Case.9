@@ -93,21 +93,7 @@ app.get('/user', (req, res) => {
     res.render("login", { message: req.flash('message') });
 });
 
-// Hantera inloggning
-// app.post('/user/login', (req, res) => {
-//     const { username, password } = req.body;
 
-//     // Checka användarnamn och lösenord här
-
-//     if (authenticated) {
-//         req.flash('success_msg', 'Successfully logged in');
-//         // console.log(req.flash('message'));
-//         res.redirect('/makeTweet');
-//     } else {
-//         req.flash('error', 'Logged in failed');
-//         res.redirect('/user');
-//     }
-// });
 
 // Route-handling för att visa login-vyn
 app.get('/user', (req, res) => {
