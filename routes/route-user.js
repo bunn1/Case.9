@@ -35,8 +35,6 @@ router.get("/logout", (req, res) => {
 });
 
 
-// router.get("/makeTweet", getTweetById)
-
 // 1. Vid tryck på knapp börjar funktionen köras / hämtar alla tweet eller public tweet beroende på situationen. 6. Körs igen vid res.redirect (tillbaka till steg 1)
 // g. Kommer ifrån controller-tweet efter man skapat en tweet
 router.get("/seeTweet", async (req, res) => {

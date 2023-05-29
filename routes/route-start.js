@@ -8,11 +8,4 @@ router.get("/", (req, res) => {
 });
 
 
-
-
-// render page using ejs
-// router.get("/makeTweet", (req, res) => {
-//         res.render("makeTweet", {site: SITE_NAME});
-// });
-
 export default router;

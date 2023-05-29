@@ -22,11 +22,12 @@
         <div class="alert alert-danger"><%= error_msg %></div>
     <% } %>
 
-        <!-- B. Visar hemsidan när res.render körs -->
+        <!-- B. Visar sidan när res.render körs -->
         <h1>Logga in</h1>
 
      
         <!-- C. Här matas datan in och kör funktionen POST och action login -->
+        <!-- action = specificerar att POST-förfrågan ska skickas till "/user/login"-sökvägen -->
         <form action="/user/login" method="POST">
             <div class="input-field">
                 <label for="username">Användar Namn</label>
