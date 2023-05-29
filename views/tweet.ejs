@@ -17,6 +17,8 @@
         <div class="alert alert-success"><%= create_msg %></div>
     <% } %>
 
+           <!-- 4. Visar tweet från res.render (funktionen som körs), pågår hela tiden -->
+
     <div id="tweets">
         <% if (data) { %>
         <% data.forEach(tweet => { %>
@@ -34,6 +36,7 @@
         <% } %>
     </div>
 
+    <!-- 6. Här matas de nya datan och kör router.post action=edit tweet i routeuser.js när save change knappen trycks  -->
     <form id="editForm" method="POST" action="editTweet" hidden>
         <input type="hidden" name="id" id="editFormId">
         <label for="name">Användarnamn:</label>
@@ -73,42 +76,12 @@
             }
             // Show edit form
             document.getElementById("editForm").hidden = false;
-            // Setup submit handler for edit form
-        //     editFormEl.onsubmit = (evt) => {
-        //         evt.preventDefault();
-        //         // DONE send a put request to server
-        //         // with new values for name and quote
-        //         // with current selected id
-        //         const newName = editFormEl.elements.name.value;
-        //         const newTweet = editFormEl.elements.tweet.value;
-        //         const newStatus = editFormEl.elements.status.value;
-        //         // tip: use fetch
-        //         console.log(id)
-        //         fetch(`/tweets/${id}/edit`, {
-        //                 method: "PUT",
-        //                 headers: {
-        //                     "Content-Type": "application/json", // let server know that body is a string of json
-        //                 },
-        //                 body: JSON.stringify({
-        //                     name: newName,
-        //                     tweet: newTweet,
-        //                     status: newStatus
-        //                 }),
-        //             })
-        //             .then((resp) => {
-        //                 console.log(resp);
-        //                 if (resp.redirected) {
-        //                     window.location.href = resp.url;
-        //                 }
-        //             })
-        //             .catch((err) => console.error(err));
-        //     };
-
         }
 
 
         const tweets = document.getElementById("tweets");
 
+        // 5. Den här funktionen körs när du trycker på edit knappen - den kopierar tweet datan in i edit fälten - trycker du på en annan edit knapp ändras endast tweet datan  
         tweets.addEventListener("click", (event) => {
             event.preventDefault();
             console.log(event.target);
@@ -120,13 +93,10 @@
                 console.log(tweetElement)
                 const oldUserName = tweetElement.getElementsByClassName("anvandarNamn")[0].textContent;
                 console.log(oldUserName)
-                // const oldUserName = document.querySelector(`#${id} .anvandarNamn`).textContent.slice(2);
 
                 const oldTextContent = tweetElement.getElementsByClassName("content")[0].textContent;
                 const oldStatus = tweetElement.getElementsByClassName("status")[0].textContent;
 
-                // const oldTextContent = tweetElement.querySelector("p").textContent;
-                // const oldStatus = tweetElement.querySelector("div:last-child").textContent;
                 document.getElementById("editFormId").value = id;
                 handleEdit(id, oldUserName, oldTextContent, oldStatus);
             } else if (event.target.nodeName == "BUTTON" && event.target.getAttribute("data-id")) {
@@ -151,35 +121,7 @@
             }
         });
 
-        // const editTweet = document.getElementById("tweets");
-
-        // editTweet.addEventListener("click", (event) => {
-
-        //     event.preventDefault();
-
-        //     console.log(event.target);
-
-        //     if (event.target.nodeName == "BUTTON") {
-
-        //         // console.log(event.target.getAttribute§("data-id"));
-
-        //         const id = event.target.getAttribute("edit-id");
-
-        //         console.log(id)
-        //         const options = {
-
-        //             method: 'PUT',
-
-        //             headers: {
-        //                 'Content-Type': 'application/json'
-        //             },
-
-        //             body: JSON.stringify({
-        //                 id: id
-        //             })
-        //         }
-        //     }
-        // })
+      
     </script>
 
 </body>

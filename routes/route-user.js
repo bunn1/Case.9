@@ -18,9 +18,12 @@ router.get("/register", (req, res) => {
 
 router.use(flash());
 
+// A. Början på login - Kommer tillbaka hit efter genomgången loop på fel lösenord
 router.get("/login", (req, res) => {
     const success_msg = req.flash('success_msg');
-    const error_msg = req.flash('error_msg');
+    const error_msg = req.flash('error_msg');  // Har ett värde om man har skrivit fel lösenord 
+  
+    // letar efter login.ejs fil 
     res.render("login", { site: SITE_NAME, username: req.session.username, success_msg: success_msg, error_msg: error_msg });
 });
 
@@ -32,8 +35,10 @@ router.get("/logout", (req, res) => {
 });
 
 
-router.get("/makeTweet", getTweetById)
+// router.get("/makeTweet", getTweetById)
 
+// 1. Vid tryck på knapp börjar funktionen köras / hämtar alla tweet eller public tweet beroende på situationen. 6. Körs igen vid res.redirect (tillbaka till steg 1)
+// g. Kommer ifrån controller-tweet efter man skapat en tweet
 router.get("/seeTweet", async (req, res) => {
     const create_msg = req.flash('create_msg');
     let data = await getPublicTweet()
@@ -42,7 +47,7 @@ router.get("/seeTweet", async (req, res) => {
      data = await getAllTweet(user)
   } 
    
-  
+// 3. Letar efter fil som ligger i views /tweet.ejs
     res.render("../views/tweet", {
         success: true,
         message: "Create tweet success",
@@ -52,6 +57,7 @@ router.get("/seeTweet", async (req, res) => {
    
 });
 
+// d. Funktionen körs från makeTweet.ejs 
 router.post('/createTweet', createTweet)
 
 
@@ -109,6 +115,8 @@ console.log(req.body)
         });
 });
 
+// 7. När du trycker på submit knappen körs den här funktionen. Kontaktar databasen 119 o 123 
+
 router.post("/editTweet", async (req, res) => {
    
     try {
@@ -118,6 +126,7 @@ console.log(author)
 
 if (author === req.session.username) {
     await updateTweetById(req.body);
+    // 8. Kör funktion router.get seeTweet och går tillbaka till steg 1.
     res.redirect("/user/seeTweet");
 } else{
     res.status(403).send("Not Logged In")
@@ -129,10 +138,11 @@ if (author === req.session.username) {
     }
 })
 
+// D. Funktionen körs när login knappen trycks.
 router.post("/login", (req, res) => {
 
     let reply = { result: "", message: "" };
-
+// Funktion som körs i controller-user
     loginUser(req.body).then((data) => {
 
         if (data.error !== undefined) {
@@ -152,7 +162,7 @@ router.post("/login", (req, res) => {
 
     }).catch(error => {
         req.flash('error_msg', 'Error not logged in!');
-        // console.log("error loginUser method", error);
+        // F. Kör en get funktion beroende på om man lyckades logga in eller inte och tillbaka till steg A
     }).finally(() => {
         if (reply.result === "success") {
           res.redirect("/makeTweet");

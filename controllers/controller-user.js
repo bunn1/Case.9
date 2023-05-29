@@ -7,10 +7,6 @@ import {
     UserSchema
 } from '../models/UserSchema.js';
 import bcrypt from 'bcrypt';
-// import { postSchema } from '../models/tweets.js';
-// import {
-//     tweetSchema
-// } from '../models/tweets.js'
 
 import Tweet from '../models/tweets.js'
 import {
@@ -24,7 +20,7 @@ async function listUsers() {
 
     return users;
 }
-// hej
+
 async function addUser(obj) {
 
     // check if obj passes schema validation
@@ -61,6 +57,7 @@ async function addUser(obj) {
     }
 }
 
+// E. Funktion körs av route-user - kollar om lösenord är rätt - går tillbaka till route-user när funktionen är färdig.
 async function loginUser(obj) {
 
     // check if users exists

@@ -10,14 +10,10 @@ import flash from "connect-flash";
 import { config, SITE_NAME, PORT, SESSION_SECRET, SESSION_MAXAGE } from "./configs.js";
 import routeStart from './routes/route-start.js';
 import routeUser from './routes/route-user.js';
-// import {tweetRouter} from './routes/route-edit.js'
 
 import { getTweetById , updateTweetById} from './controllers/controller-tweet.js';
 
 import bodyParser from 'body-parser';
-
-// Lägg till flash-meddelande middleware
-
 
 
 // express app environment
@@ -75,7 +71,7 @@ app.use('/start', routeStart);
 app.use('/home', routeStart);
 app.use('/user', routeUser);
 
-// Renderar sidan makeTweet
+// a. Renderar sidan makeTweet
 app.get('/makeTweet', (req, res) => {
     res.render("makeTweet", { tweet: {} });
 });
@@ -126,11 +122,5 @@ app.use((err, req, res, next) => {
 
 // listen on server requests
 // ========================================
-
-// Avmarkerat 23 feb ---------------------------------------
-// app.listen(PORT, (req, res) => {e
-//     console.log(`Server running on port ${PORT}`);
-// });
-// Slut på avmarkerat -----------------------------------
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

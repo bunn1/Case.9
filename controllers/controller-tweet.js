@@ -11,7 +11,7 @@ async function getTweetById(req, res) {
     res.render('makeTweet', { tweet });
 }
 
-// Skapar en ny tweet och sätter in den i databasen
+// e. Skapar en ny tweet och sätter in den i databasen
 async function createTweet(req, res) {
     try {
         const {
@@ -39,12 +39,14 @@ async function createTweet(req, res) {
         let newTweets = await db.collection("newTweets").find({}).toArray()
 
         req.flash('create_msg', 'Good Created Tweet!');
+        // f. Kör en funktion som är router.get seeTweet
         res.redirect("/user/seeTweet")
     } catch (error) {
         console.log(error)
     }
 }
 
+// 2. Hämtar alla tweet
 async function getAllTweet(author){
     return await db.collection("newTweets").find({
         $or: [
@@ -62,6 +64,7 @@ async function getAuthor(id){
   );
 }
 
+// 2. Hämtar public tweet 
 async function getPublicTweet(){
     
 
@@ -91,8 +94,7 @@ async function deleteTweet(id) {
     } catch (err) {
         console.log(err.message);
     } finally {
-        // res.redirect("/")
-
+      
         // meddelar klienten att nu är tweeten raderad
         return {success: true, message: "tweet Deleted id: objId:"};
     }
@@ -100,6 +102,7 @@ async function deleteTweet(id) {
 
 // Uppdater tweet i tweets collection med specifikt id genom att använda $set operator. Den uppdaterar tweets username, textcontent och status fältet.
 // Sen omdirigeras användaren till den uppdaterade tweets details sidan.
+// 5. Detta blir kallad från route.user - uppdatering i databasen efter ändring edit
 const updateTweetById = async (body) => {
 
     // const { id } = req.params;
