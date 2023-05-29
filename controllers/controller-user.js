@@ -21,6 +21,7 @@ async function listUsers() {
     return users;
 }
 
+// Lägg till användare
 async function addUser(obj) {
 
     // check if obj passes schema validation
@@ -39,15 +40,17 @@ async function addUser(obj) {
         };
     }
 
+    // Funktionen getUsername används för att kontrollera om användarnamnnet redan finns i systemet.
     const user = await getUsername(obj.username);
 
+    // Om inte användar namnet finns krypteras lösenordet.
     if (!user) {
 
         // hash
         const hash = bcrypt.hashSync(obj.password, saltRounds);
         obj.password = hash;
 
-        // if no errors - save to database, return result    
+        // Om det inte är några fel - sparas till databasen och returnera resultat   
         return await db.collection("users").insertOne(obj);
 
     } else {

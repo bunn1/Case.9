@@ -35,7 +35,7 @@ router.get("/logout", (req, res) => {
 });
 
 
-// 1. Vid tryck på knapp börjar funktionen köras / hämtar alla tweet eller public tweet beroende på situationen. 6. Körs igen vid res.redirect (tillbaka till steg 1)
+// 1. Vid tryck på knapp börjar funktionen köras / hämtar alla tweet eller public tweet beroende på situationen. Körs igen vid res.redirect (tillbaka till steg 1)
 // g. Kommer ifrån controller-tweet efter man skapat en tweet
 router.get("/seeTweet", async (req, res) => {
     const create_msg = req.flash('create_msg');
@@ -85,12 +85,14 @@ router.put("/tweets/:id/edit", async (req, res) => {
     }
   });
 
+// Registrera användare
 router.post("/register", (req, res) => {
 
     // prepare obj reply
     let reply = { result: "", message: "" };
 console.log(req.body)
 
+    // Initierar registrerings processen för användare
     addUser(req.body)
     
         .then((data) => {
