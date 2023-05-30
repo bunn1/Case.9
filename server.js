@@ -98,8 +98,6 @@ app.get('/user', (req, res) => {
 });
 
 
-
-// app.get('/about', getAllTweets)
 // static files | folders
 // ========================================
 app.use(express.static("./public"));
