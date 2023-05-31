@@ -50,7 +50,8 @@ router.get("/seeTweet", async (req, res) => {
         success: true,
         message: "Create tweet success",
         data:data, 
-        create_msg: create_msg
+        create_msg: create_msg,
+        user: user
     })
    
 });
