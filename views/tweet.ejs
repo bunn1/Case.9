@@ -27,9 +27,11 @@
             <div>Tweet: <%= tweet.createdAt %></div>
             <p data-text><p class="content"><%=tweet.textContent %></p></p>
             <div>Status: <p class="status"><%=tweet.status %></p></div>
+            <!-- Visar bara knapparna om user existerar -->
+            <% if (!!user) { %>
             <button  data-id="<%= tweet._id %>">Radera</button>
             <button edit-id="<%= tweet._id %>">Edit</button>
-
+            <% } %>
             <hr />
         </section>
         <% }) %>
