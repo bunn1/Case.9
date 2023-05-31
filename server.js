@@ -20,6 +20,8 @@ import bodyParser from 'body-parser';
 // ========================================
 const app = express();
 
+app.use(flash());
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,7 +75,14 @@ app.use('/user', routeUser);
 
 // a. Renderar sidan makeTweet
 app.get('/makeTweet', (req, res) => {
-    res.render("makeTweet", { tweet: {} });
+    // om den existerar, om man är inloggad : ej användarnamn innehar inget värde
+    if (!!req.session.username) { 
+        res.render("makeTweet", { tweet: {} });
+    }
+   else{ 
+    req.flash('error_msg', 'Error not logged in!');
+    res.redirect("/user/login")
+   }
 });
 
 // Middleware flash
