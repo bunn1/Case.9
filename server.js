@@ -75,7 +75,7 @@ app.use('/user', routeUser);
 
 // a. Renderar sidan makeTweet
 app.get('/makeTweet', (req, res) => {
-    // om den existerar, om man är inloggad : ej användarnamn innehar inget värde
+    // om den existerar (har ett värde) om man är inloggad :
     if (!!req.session.username) { 
         res.render("makeTweet", { tweet: {} });
     }
